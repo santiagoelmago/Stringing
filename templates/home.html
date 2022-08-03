@@ -17,58 +17,28 @@
   </head>
 
     <body>
-        
-        <div class="p-5 text-center">
-            <h3> New Racquet Entry </h3>
-        </div>
+      <br><br><br>
+
+      
+      <div class="text-center m-3">
+        <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1>StringFlow</h1>
+      </div>
+      <br><br>
+  
+      <div class="text-center" >
+        <a href="{{url_for('form')}}" class="btn btn-lg btn-dark p-3 m-3" style="width: 300px; margin:auto">New Racquet Entry</a>
+      </div> 
+
+      <div class="text-center" >
+        <a href="{{url_for('racketlist')}}" class="btn btn-lg btn-dark p-3 m-3" style="width: 300px; margin:auto">Racquet Queue</a>
+      </div>
+
+      <div class="text-center">
+        <a href="{{url_for('racketlist')}}" class="btn btn-lg btn-dark p-3 m-3" style="width: 300px; margin:auto">Racquet History</a>
+      </div>
     
 
-    <form action="" style="width: 500px; margin:auto" method="POST" >
 
-        <label for='pname'>Player Name</label>    
-        <input type="'text" id="pname" name="player_name" class="form-control" placeholder="Player Name" required ><br>
-
-
-        <label for='rbrand'>Racquet Brand</label>    
-        <select id="rbrand" name="racket_brand" class="form-control" required>
-          <option value="wilson">Wilson</option>
-          <option value="babolat">Babolat</option>
-          <option value="head">Head</option>
-          <option value="yonex">Yonex</option>
-          <option value="prince">Prince</option>
-          <option value="dunlop">Dunlop</option>
-          <option value="tecnifibre">Tecnifibre</option>
-        </select>
-        <br>
-
-        <label for="rmodel">Racquet Model</label>   
-        <input type="text" id="rmodel" name="racket_model" class="form-control" placeholder="Racquet Model" required><br>
-
-        <label for='smain'>String Mains</label>    
-        <select id="smain" name="string_main" class="form-control">
-         <option value="hyperg">Hyper G</option>
-         <option value="barbwire">Barbwire</option>
-         <option value="own string">Own String</option>
-        </select><br>
-
-        <label for='scross'>String Crosses</label>
-        <select id="scross" name="string_cross" class="form-control" required>
-            <option value="hyperg">Hyper G</option>
-            <option value="barbwire">Barbwire</option>
-            <option value="own string">Own String</option>
-        </select><br>
-
-        <label for='tens'>String Tension</label>    
-        <input type="'number" id="tens" name="tension" class="form-control" placeholder="String Tension" required><br>
-
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Add New Racket</button>
-
-    </form>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    
     </body>
-    <div class="m-5 pb-5"></div>
 </html>
-

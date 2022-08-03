@@ -1,3 +1,5 @@
+from datetime import datetime
+from sqlite3 import Date
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import DateTime
@@ -18,6 +20,7 @@ db = SQLAlchemy(app)
 class RacketForm(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     player_name = db.Column(db.String(80), unique=False, nullable=False)
+    phone_number = db.Column(db.String(80), unique=False, nullable=False)
     racket_brand = db.Column(db.String(120), unique=False, nullable=False)
     racket_model = db.Column(db.String(80), unique=False, nullable=False)
     string_main = db.Column(db.String(80), unique=False, nullable=False)
@@ -35,24 +38,34 @@ def home():
 
     #Lines 38–53 provide a model so that Python can translate the racket info table.
 
-@app.route("/form", methods= ["POST"])
+@app.route("/form", methods= ["GET", "POST"])
 def form():
-    request.form.get('player_name')
-    racket_form_response = RacketForm(
-        player_name = request.form.get('player_name'), 
-        racket_brand = request.form.get('racket_brand'),
-        racket_model = request.form.get('racket_model'),
-        string_main = request.form.get('string_main'),
-        string_cross = request.form.get('string_cross'),
-        tension = request.form.get('tension'),
-        created_on = request.form.get('created_on'),
-        updated_on = request.form.get('updated_on')
-        ) 
+    if request.method == "POST":
+        racket_form_response = RacketForm(
+            player_name = request.form.get('player_name'), 
+            phone_number = request.form.get('phone_number'), 
+            racket_brand = request.form.get('racket_brand'),
+            racket_model = request.form.get('racket_model'),
+            string_main = request.form.get('string_main'),
+            string_cross = request.form.get('string_cross'),
+            tension = request.form.get('tension'),
+            created_on = request.form.get('created_on'),
+            updated_on = request.form.get('updated_on')
+            ) 
 
-    db.session.add(racket_form_response)
-    db.session.commit()
+        db.session.add(racket_form_response)
+        db.session.commit()
+    return render_template("form.html")
 
+@app.route("/racketlist")
+def racketlist():
+    rackets = RacketForm.query.all()
+    return render_template("racket_list.html", rackets=rackets)
 
+@app.route("/racketqueue")
+def racketqueue():
+    rackets = RacketForm.query.all()
+    return render_template("racket_queue.html", rackets=rackets)
 
 # NOTHING BELOW THIS LINE NEEDS TO CHANGE
 # this route will test the database connection and nothing more
