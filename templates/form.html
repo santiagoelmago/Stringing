@@ -16,25 +16,25 @@
     />
   </head>
 
-    <body>
+    <body class="bg-dark">
         
-        <div class="p-5 text-center">
+        <div class="p-5 text-center text-white">
             <h3> New Racquet Entry </h3>
         </div>
     
 
-    <form action="/form" style="width: 500px; margin:auto" method="POST" >
+    <form action="/form" class="bg-dark text-white" style="width: 500px; margin:auto" method="POST" >
 
         <label for='pname'>Player Name</label>    
-        <input type="'text" id="pname" name="player_name" class="form-control" placeholder="Player Name" required ><br>
+        <input type="'text" id="pname" name="player_name" class="form-control bg-dark rounded-0 text-white border-0" placeholder="Player Name" required ><br>
 
         <label for='pnumber'>Phone Number</label>    
-        <input type="'tel" id="pnumber" name="phone_number" class="form-control" placeholder="Phone Number" required ><br>
+        <input type="'tel" id="pnumber" name="phone_number" class="form-control bg-dark rounded-0 text-white border-0" placeholder="Phone Number" required ><br>
 
 
 
         <label for='rbrand'>Racquet Brand</label>    
-        <select id="rbrand" name="racket_brand" class="form-control" required>
+        <select id="rbrand" name="racket_brand" class="form-control bg-dark rounded-0 text-white border-0" required>
           <option value="Wilson">Wilson</option>
           <option value="Babolat">Babolat</option>
           <option value="Head">Head</option>
@@ -46,26 +46,32 @@
         <br>
 
         <label for="rmodel">Racquet Model</label>   
-        <input type="text" id="rmodel" name="racket_model" class="form-control" placeholder="Racquet Model" required><br>
+        <input type="text" id="rmodel" name="racket_model" class="form-control bg-dark rounded-0 text-white border-0" placeholder="Racquet Model" required><br>
 
         <label for='smain'>String Mains</label>    
-        <select id="smain" name="string_main" class="form-control">
+        <select id="smain" name="string_main" class="form-control bg-dark rounded-0 text-white border-0">
          <option value="Hyper G">Hyper G</option>
          <option value="Barbwire">Barbwire</option>
+         <option value="Tourbite">Tourbite</option>
+         <option value="Own String">Vanquish</option>
+         <option value="Own String">Synthetic</option>
          <option value="Own String">Own String</option>
         </select><br>
 
         <label for='scross'>String Crosses</label>
-        <select id="scross" name="string_cross" class="form-control" required>
+        <select id="scross" name="string_cross" class="form-control bg-dark rounded-0 text-white border-0" required>
             <option value="Hyper G">Hyper G</option>
             <option value="Barbwire">Barbwire</option>
-            <option value="Own String">Own String</option>
+            <option value="Tourbite">Tourbite</option>
+            <option value="Own String">Vanquish</option>
+            <option value="Own String">Synthetic</option>
+           <option value="Own String">Own String</option>
         </select><br>
 
         <label for='tens'>String Tension</label>    
-        <input type="'number" id="tens" name="tension" class="form-control" placeholder="String Tension" required><br>
+        <input type="'number" id="tens" name="tension" class="form-control bg-dark rounded-0 text-white border-0" placeholder="String Tension" required><br>
 
-        <button type="submit" class="btn btn-dark btn-lg btn-block">Add New Racket</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Add New Racket</button>
 
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

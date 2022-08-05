@@ -16,40 +16,46 @@
     />
   </head>
 
-    <body>
-      <div class="p-5 text-cente=
-      '">
-        <h2> Racquet Queue </h2>
+    <body class="bg-dark">
+      <div class="px-5 pt-5 pb-3 text-white">
+        <h3> Racquet Queue </h3>
     </div>
-        <table class="table table-striped table-bordered table-hover" style="width: 1200px; margin:auto">
+        <table class="table table-dark table-striped table-bordered table-hover" style="width: 1200px; margin:auto">
             <thead class="thead-dark">
-              <tr>
-                <th scope="col">Date Received</th>
+              <tr class="text-center">
+                <th scope="col" style="width:15%">Date Received</th>
                 <th scope="col">Racket Brand</th>
                 <th scope="col">Racket Model</th>
-                <th scope="col">Strings Main</th>
+                <th scope="col">Strings Mains</th>
                 <th scope="col">Strings Cross</th>
                 <th scope="col">Tension</th>
+                <th scope="col">Stringer</th>
+                <th scope="col">Status</th>
               </tr>
             </thead>
             <tbody>
                 {% for racket in rackets %}
-                    <tr>
-                        <td>{{racket.created_on}}</td>
-                        <td>{{racket.racket_brand}}</td>
-                        <td>{{racket.racket_model}}</td>
-                        <td>{{racket.string_main}}</td>
-                        <td>{{racket.string_cross}}</td>
-                        <td>{{racket.tension}}</td>
+                    <tr class="text-center">
+                        <td class="align-middle">{{racket.created_on}}</td>
+                        <td class="align-middle">{{racket.racket_brand}}</td>
+                        <td class="align-middle">{{racket.racket_model}}</td>
+                        <td class="align-middle">{{racket.string_main}}</td>
+                        <td class="align-middle">{{racket.string_cross}}</td>
+                        <td class="align-middle">{{racket.tension}}</td>
+                        <td class="align-middle"> 
+                          <select class="select-picker bg-dark text-white border-0"> 
+                            <option>Diego 
+                            <option>Jaime 
+                            <option>Mauricio
+                            <option>Emilio 
+                            </select>
+                           </td>
+                        <td class="align-middle"> <button type="button" class="btn btn-secondary">Finished</button></td>
                     </tr>
                 {% endfor %}
 
             </tbody>
           </table>
-    
-
-
-
-
     </body>
 </html>
+

@@ -4,6 +4,8 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import DateTime
 from sqlalchemy.sql import text, func
+from sqlalchemy.orm import sessionmaker, session
+
 
 app = Flask(__name__)
 
@@ -16,6 +18,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 # this variable, db, will be used for all SQLAlchemy commands
 db = SQLAlchemy(app)
 
+#now = datetime.now()
+#weekday_month = now.strftime("%a-%d")
 
 class RacketForm(db.Model):
     id = db.Column(db.Integer, primary_key=True)
