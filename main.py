@@ -1,11 +1,7 @@
-from datetime import datetime
-from sqlite3 import Date
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import DateTime
 from sqlalchemy.sql import text, func
-from sqlalchemy.orm import sessionmaker, session
-
 
 app = Flask(__name__)
 
@@ -18,9 +14,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 # this variable, db, will be used for all SQLAlchemy commands
 db = SQLAlchemy(app)
 
-#now = datetime.now()
-#weekday_month = now.strftime("%a-%d")
-
 class RacketForm(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     player_name = db.Column(db.String(80), unique=False, nullable=False)
@@ -30,6 +23,7 @@ class RacketForm(db.Model):
     string_main = db.Column(db.String(80), unique=False, nullable=False)
     string_cross = db.Column(db.String(80), unique=False, nullable=False)
     tension = db.Column(db.Integer, unique=False, nullable=False)
+    status = db.Column(db.String(80), unique=False, nullable=False)
     created_on = db.Column(DateTime(timezone=True), server_default=func.now())
     updated_on = db.Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
  
@@ -53,6 +47,7 @@ def form():
             string_main = request.form.get('string_main'),
             string_cross = request.form.get('string_cross'),
             tension = request.form.get('tension'),
+            status = "In Progress",
             created_on = request.form.get('created_on'),
             updated_on = request.form.get('updated_on')
             ) 
@@ -61,15 +56,20 @@ def form():
         db.session.commit()
     return render_template("form.html")
 
-@app.route("/racketlist")
-def racketlist():
-    rackets = RacketForm.query.all()
-    return render_template("racket_list.html", rackets=rackets)
-
 @app.route("/racketqueue")
 def racketqueue():
-    rackets = RacketForm.query.all()
+    rackets = RacketForm.query.order_by(RacketForm.status, RacketForm.created_on.desc()).all()
+
     return render_template("racket_queue.html", rackets=rackets)
+
+@app.route("/updatestatus/<int:racket_id>")
+def updatestatus(racket_id):
+    racket_request = RacketForm.query.filter_by(id=racket_id).first()
+    racket_request.status="Finished"
+    db.session.commit()
+    return redirect(url_for('racketqueue'))
+
+
 
 # NOTHING BELOW THIS LINE NEEDS TO CHANGE
 # this route will test the database connection and nothing more
