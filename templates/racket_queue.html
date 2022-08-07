@@ -59,9 +59,9 @@
                         <td class="align-middle">{{racket.status}}</td>
                         <td class="align-middle">
                           {% if racket.status == "In Progress" %}
-                          <button type="button" class="btn btn-primary" onclick="Racketfinished({{racket.id}})">Done</button>
+                          <a href="/update/{{ racket.id }}/status/Finished" class="btn btn-primary">Done</a>
                           {% else %}
-                          <button type="button" class="btn btn-secondary">Undo</button>
+                          <a href="/update/{{ racket.id }}/status/In Progress" class="btn btn-secondary">Undo</a>
                           {% endif %}
                         </td>
                     </tr>
@@ -71,11 +71,5 @@
           </table>
           <br><br>
     </body>
-    <script>
-      function RacketFinished(racket_id) {
-        await fetch ('/updatestatus/' + racket_id)
-
-      }
-    </script>
 </html>
 

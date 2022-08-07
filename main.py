@@ -58,17 +58,16 @@ def form():
 
 @app.route("/racketqueue")
 def racketqueue():
-    rackets = RacketForm.query.order_by(RacketForm.status, RacketForm.created_on.desc()).all()
+    rackets = RacketForm.query.order_by(RacketForm.status.desc(), RacketForm.created_on.desc()).all()
 
     return render_template("racket_queue.html", rackets=rackets)
 
-@app.route("/updatestatus/<int:racket_id>")
-def updatestatus(racket_id):
+@app.route("/update/<int:racket_id>/status/<string:status>")
+def update(racket_id, status):
     racket_request = RacketForm.query.filter_by(id=racket_id).first()
-    racket_request.status="Finished"
+    racket_request.status = status
     db.session.commit()
     return redirect(url_for('racketqueue'))
-
 
 
 # NOTHING BELOW THIS LINE NEEDS TO CHANGE
