@@ -36,37 +36,42 @@ def home():
 
     #Lines 38–53 provide a model so that Python can translate the racket info table.
 
-@app.route("/form", methods= ["POST"])
-def form():
-    racket_form_response = RacketForm(
-        player_name = request.form.get('player_name'), 
-        phone_number = request.form.get('phone_number'), 
-        racket_brand = request.form.get('racket_brand'),
-        racket_model = request.form.get('racket_model'),
-        string_main = request.form.get('string_main'),
-        string_cross = request.form.get('string_cross'),
-        tension = request.form.get('tension'),
-        status = "In Progress",
-        created_on = request.form.get('created_on'),
-        updated_on = request.form.get('updated_on')
-        ) 
+@app.route("/racket", methods= ["GET", "POST"])
+def rackets():
+    if request.method == "POST":
+        racket_form_response = RacketForm(
+            player_name = request.form.get('player_name'), 
+            phone_number = request.form.get('phone_number'), 
+            racket_brand = request.form.get('racket_brand'),
+            racket_model = request.form.get('racket_model'),
+            string_main = request.form.get('string_main'),
+            string_cross = request.form.get('string_cross'),
+            tension = request.form.get('tension'),
+            status = "In Progress",
+            created_on = request.form.get('created_on'),
+            updated_on = request.form.get('updated_on')
+            ) 
 
-    db.session.add(racket_form_response)
-    db.session.commit()
-    return redirect(url_for('racketqueue'))
+        db.session.add(racket_form_response)
+        db.session.commit()
+        return redirect(url_for('rackets'))
+    if request.method == "GET":
+        rackets = RacketForm.query.order_by(RacketForm.status.desc(), RacketForm.created_on.desc()).all()
+        return render_template("racket_queue.html", rackets=rackets)
 
-@app.route("/racketqueue")
-def racketqueue():
-    rackets = RacketForm.query.order_by(RacketForm.status.desc(), RacketForm.created_on.desc()).all()
 
-    return render_template("racket_queue.html", rackets=rackets)
 
-@app.route("/update/<int:racket_id>/status/<string:status>")
-def update(racket_id, status):
-    racket_request = RacketForm.query.filter_by(id=racket_id).first()
-    racket_request.status = status
-    db.session.commit()
-    return redirect(url_for('racketqueue'))
+@app.route("/racket/new", methods= ["GET"])
+def createRacket():
+    return render_template('form.html')
+
+@app.route("/racket/<int:racket_id>", methods= ["POST"])
+def update(racket_id):
+    if request.method == "POST":
+        racket_request = RacketForm.query.filter_by(id=racket_id).first()
+        racket_request.status = request.form.get('status')
+        db.session.commit()
+        return redirect(url_for('rackets'))
 
 
 # NOTHING BELOW THIS LINE NEEDS TO CHANGE
