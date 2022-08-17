@@ -9,6 +9,13 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
     />
+    <style>
+
+      .hidden {
+        display: none;
+      }
+
+    </style>
   </head>
 
     <body class="bg-dark">
@@ -57,9 +64,16 @@
                         <td class="align-middle">{{racket.status}}</td>
                         <td class="align-middle">
                           {% if racket.status == "In Progress" %}
-                          <a href="/update/{{ racket.id }}/status/Finished" class="btn btn-primary">Done</a>
+                          <form action="/racket/{{ racket.id}}" method="POST">
+                            <input class="hidden" value="Finished" name="status" />
+                          <button type="submit" class="btn btn-primary">Done</a>
+                          </form>
                           {% else %}
-                          <a href="/update/{{ racket.id }}/status/In Progress" class="btn btn-secondary">Undo</a>
+                          <form action="/racket/{{ racket.id}}" method="POST">
+                            <input class="hidden" value="In Progress" name="status" />
+                          <button type="submit" class="btn btn-secondary">Undo</a>
+                          </form>
+ 
                           {% endif %}
                         </td>
                     </tr>
@@ -80,7 +94,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form action="/form" class="bg-dark text-white" method="POST" >
+              <form action="/racket" class="bg-dark text-white" method="POST" >
 
                 <label for='pname'>Player Name</label>    
                 <input type="'text" id="pname" name="player_name" class="form-control bg-dark rounded-0 text-white border-0" placeholder="Player Name" required ><br>
