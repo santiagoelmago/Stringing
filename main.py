@@ -17,6 +17,7 @@ db = SQLAlchemy(app)
 class RacketForm(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     player_name = db.Column(db.String(80), unique=False, nullable=False)
+    stringer = db.Column(db.String(80), unique=False, nullable=True)
     phone_number = db.Column(db.String(80), unique=False, nullable=False)
     racket_brand = db.Column(db.String(120), unique=False, nullable=False)
     racket_model = db.Column(db.String(80), unique=False, nullable=False)
@@ -70,6 +71,7 @@ def update(racket_id):
     if request.method == "POST":
         racket_request = RacketForm.query.filter_by(id=racket_id).first()
         racket_request.status = request.form.get('status')
+        racket_request.stringer = request.form.get('stringer')
         db.session.commit()
         return redirect(url_for('rackets'))
 
