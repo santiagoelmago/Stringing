@@ -46,6 +46,7 @@
             <tbody>
                 {% for racket in rackets %}
                     <tr class="text-center">
+                          <form action="/racket/{{ racket.id}}" method="POST">
                         <td class="align-middle">
                           {{ racket.created_on.strftime('%A %m-%d') }}</td>
                         <td class="align-middle">{{racket.racket_brand}}</td>
@@ -54,28 +55,25 @@
                         <td class="align-middle">{{racket.string_cross}}</td>
                         <td class="align-middle">{{racket.tension}}</td>
                         <td class="align-middle"> 
-                          <select class="select-picker bg-dark text-white border-0"> 
-                            <option>Diego</option>
-                            <option>Jaime</option>
-                            <option>Mauricio</option>
-                            <option>Emilio</option>
+                          <select value="{{racket.stringer}}" name="stringer" class="select-picker bg-dark text-white border-0"> 
+                            <option value="" {% if racket.stringer==None %} selected {% endif %}>NONE</option>
+                            <option value="Diego" {% if racket.stringer=="Diego" %} selected {% endif %}>Diego</option>
+                            <option value="Jaime" {% if racket.stringer=="Jaime" %} selected {% endif %}>Jaime</option>
+                            <option value="Mauricio" {% if racket.stringer=="Mauricio" %} selected {% endif %}>Mauricio</option>
+                            <option value="Emilio" {% if racket.stringer=="Emilio" %} selected {% endif %}>Emilio</option>
                           </select>
                         </td>
-                        <td class="align-middle">{{racket.status}}</td>
                         <td class="align-middle">
-                          {% if racket.status == "In Progress" %}
-                          <form action="/racket/{{ racket.id}}" method="POST">
-                            <input class="hidden" value="Finished" name="status" />
-                          <button type="submit" class="btn btn-primary">Done</a>
-                          </form>
-                          {% else %}
-                          <form action="/racket/{{ racket.id}}" method="POST">
-                            <input class="hidden" value="In Progress" name="status" />
-                          <button type="submit" class="btn btn-secondary">Undo</a>
-                          </form>
- 
-                          {% endif %}
+                          <select value="{{racket.status}}" class="select-picker bg-dark text-white border-0" name="status">
+                            <option {% if racket.status=="In Progress" %} selected {% endif %} value="In Progress">In Progress</option>
+                            <option {% if racket.status=="Finished" %} selected {%endif%} value="Finished">Finished</option>
+                          </select>
                         </td>
+                        <td class="align-middle">
+                         <button type="submit" class="btn btn-secondary">Save</a>
+                        </td>
+
+                          </form>
                     </tr>
                 {% endfor %}
 
