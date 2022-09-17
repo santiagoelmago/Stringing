@@ -47,22 +47,24 @@
       </div>
       <div class="w-50 p-4 d-flex align-items-center">
         <div class="w-100 justify-content-center">
-          <div class="text-center">
-            <h3>Hello Again!</h3>
-            <small id="emailHelp" class="form-text text-muted mb-2"
-              >We'll never share your email with anyone else.</small
-            >
-          </div>
-          <form class="form text-center" method="POST" action="">
-            {{ form.hidden_tag() }}
-            {{ form.username }}
-            {{ form.password }}
-            {{ form.submit }}
-          </form>
-          <div class="text-center">
-            <a href="{{ url_for('register') }}"
-              >Don't have an account? Sign Up</a
-            >
+          <div class="w-50 mx-auto">
+            <div class="text-center">
+              <h3>Hello Again!</h3>
+              <small id="emailHelp" class="form-text text-muted mb-2"
+                >We'll never share your email with anyone else.</small
+              >
+            </div>
+            <form class="form text-center" method="POST" action="">
+              {{ form.hidden_tag() }}
+              {{ form.username(class_="form-control m-2")}}
+              {{ form.password(class_="form-control m-2") }}
+              {{ form.submit(class_="btn btn-block btn-primary m-2") }}
+            </form>
+            <div class="text-center">
+              <a href="{{ url_for('register') }}"
+                >Don't have an account? Sign Up</a
+              >
+            </div>
           </div>
         </div>
       </div>
