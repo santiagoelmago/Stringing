@@ -18,19 +18,19 @@
     </style>
   </head>
 
-    <body class="bg-dark">
+    <body class="bg-light">
       <div class="row px-5 mt-5 mb-3">
         <div class="col-10">
-          <h3 class="text-white"> Racket Queue </h3>
+          <h3 class=""> Racket Queue </h3>
         </div>
         <div class="col-2">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#entryform">
-            Add New Racket
+            + Add Racket
           </button>
         </div>
       </div>
-        <table class="table table-dark table-striped table-bordered table-hover" style="width: 1200px; margin:auto">
-            <thead class="thead-dark">
+        <table class="table table-light table-hover" style="width: 1200px; margin:auto">
+            <thead>
               <tr class="text-center">
                 <th scope="col" style="width:15%">Date Received</th>
                 <th scope="col">Racket Brand</th>
@@ -48,29 +48,29 @@
                     <tr class="text-center">
                           <form action="/racket/{{ racket.id}}" method="POST">
                         <td class="align-middle">
-                          {{ racket.created_on.strftime('%A %m-%d') }}</td>
+                          {{ racket.created_on.strftime('%a %m-%d') }}</td>
                         <td class="align-middle">{{racket.racket_brand}}</td>
                         <td class="align-middle">{{racket.racket_model}}</td>
                         <td class="align-middle">{{racket.string_main}}</td>
                         <td class="align-middle">{{racket.string_cross}}</td>
                         <td class="align-middle">{{racket.tension}}</td>
                         <td class="align-middle"> 
-                          <select value="{{racket.stringer}}" name="stringer" class="select-picker bg-dark text-white border-0"> 
-                            <option value="" {% if racket.stringer==None %} selected {% endif %}>NONE</option>
+                          <select value="{{racket.stringer}}" name="stringer" class="select-picker bg-light border-0"> 
+                            <option value="" {% if racket.stringer==None %} selected {% endif %}>None</option>
                             <option value="Diego" {% if racket.stringer=="Diego" %} selected {% endif %}>Diego</option>
                             <option value="Jaime" {% if racket.stringer=="Jaime" %} selected {% endif %}>Jaime</option>
                             <option value="Mauricio" {% if racket.stringer=="Mauricio" %} selected {% endif %}>Mauricio</option>
-                            <option value="Emilio" {% if racket.stringer=="Emilio" %} selected {% endif %}>Emilio</option>
+                            <option value="Jacob" {% if racket.stringer=="Jacob" %} selected {% endif %}>Jacob</option>
                           </select>
                         </td>
                         <td class="align-middle">
-                          <select value="{{racket.status}}" class="select-picker bg-dark text-white border-0" name="status">
+                          <select value="{{racket.status}}" class="select-picker bg-light border-0" name="status">
                             <option {% if racket.status=="In Progress" %} selected {% endif %} value="In Progress">In Progress</option>
                             <option {% if racket.status=="Finished" %} selected {%endif%} value="Finished">Finished</option>
                           </select>
                         </td>
                         <td class="align-middle">
-                         <button type="submit" class="btn btn-secondary">Save</a>
+                         <button type="submit" class="btn btn-primary">Save</a>
                         </td>
 
                           </form>
