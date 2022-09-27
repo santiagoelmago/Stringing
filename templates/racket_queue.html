@@ -14,139 +14,236 @@
       .hidden {
         display: none;
       }
+      .prpbtn {
+        background-color: #8672DE;
+        color: white
+      }
+      .dash {
+        background-color: white;
+        border-radius: 10px;
+        padding: 16px;
+        margin-left: 10px;
+        margin-right: 10px;
+        height: 120px
+      }
 
     </style>
   </head>
 
-    <body class="bg-dark">
-      <div class="row px-5 mt-5 mb-3">
-        <div class="col-10">
-          <h3 class="text-white"> Racket Queue </h3>
+  <body class="bg-light">
+  <div class="container-fluid">
+    <div class="row">         
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar border-right border-top">
+        <h4 class="text-center p-4">Logo Here</h4>
+
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item my-4">
+              <a class="nav-link active" href="#"  style="color:black">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Dashboard <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item my-4">
+              <a class="nav-link" href="#" style="color:black">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12H16c-.7 2-2 3-4 3s-3.3-1-4-3H2.5"/><path d="M5.5 5.1L2 12v6c0 1.1.9 2 2 2h16a2 2 0 002-2v-6l-3.4-6.9A2 2 0 0016.8 4H7.2a2 2 0 00-1.8 1.1z"/></svg>                Inventory
+              </a>
+            </li>
+            <li class="nav-item my-4">
+              <a class="nav-link" href="#" style="color:black">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>                Customers
+              </a>
+            </li>
+            <li class="nav-item my-4">
+              <a class="nav-link" href="#" style="color:black">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>                Racket history
+              </a>
+            </li>
+            <li class="nav-item my-4">
+              <a class="nav-link" href="#" style="color:black">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg>                Stringers
+              </a>
+            </li>
+          </ul>
         </div>
-        <div class="col-2">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#entryform">
-            Add New Racket
-          </button>
-        </div>
-      </div>
-        <table class="table table-dark table-striped table-bordered table-hover" style="width: 1200px; margin:auto">
-            <thead class="thead-dark">
-              <tr class="text-center">
-                <th scope="col" style="width:15%">Date Received</th>
-                <th scope="col">Racket Brand</th>
-                <th scope="col">Racket Model</th>
-                <th scope="col">Strings Mains</th>
-                <th scope="col">Strings Cross</th>
-                <th scope="col">Tension</th>
-                <th scope="col">Stringer</th>
-                <th scope="col">Status</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for racket in rackets %}
-                    <tr class="text-center">
-                          <form action="/racket/{{ racket.id}}" method="POST">
-                        <td class="align-middle">
-                          {{ racket.created_on.strftime('%A %m-%d') }}</td>
-                        <td class="align-middle">{{racket.racket_brand}}</td>
-                        <td class="align-middle">{{racket.racket_model}}</td>
-                        <td class="align-middle">{{racket.string_main}}</td>
-                        <td class="align-middle">{{racket.string_cross}}</td>
-                        <td class="align-middle">{{racket.tension}}</td>
-                        <td class="align-middle"> 
-                          <select value="{{racket.stringer}}" name="stringer" class="select-picker bg-dark text-white border-0"> 
-                            <option value="" {% if racket.stringer==None %} selected {% endif %}>NONE</option>
-                            <option value="Diego" {% if racket.stringer=="Diego" %} selected {% endif %}>Diego</option>
-                            <option value="Jaime" {% if racket.stringer=="Jaime" %} selected {% endif %}>Jaime</option>
-                            <option value="Mauricio" {% if racket.stringer=="Mauricio" %} selected {% endif %}>Mauricio</option>
-                            <option value="Emilio" {% if racket.stringer=="Emilio" %} selected {% endif %}>Emilio</option>
-                          </select>
-                        </td>
-                        <td class="align-middle">
-                          <select value="{{racket.status}}" class="select-picker bg-dark text-white border-0" name="status">
-                            <option {% if racket.status=="In Progress" %} selected {% endif %} value="In Progress">In Progress</option>
-                            <option {% if racket.status=="Finished" %} selected {%endif%} value="Finished">Finished</option>
-                          </select>
-                        </td>
-                        <td class="align-middle">
-                         <button type="submit" class="btn btn-secondary">Save</a>
-                        </td>
+      </nav> 
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 p-0"><div class="table-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
 
-                          </form>
-                    </tr>
-                {% endfor %}
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3"  style="background-color:#f0f0f0">
+            <h4 class="col-8 sh4 px-2">Welcome back, Santiago!</h4>   
+            <div class="btn-toolbar pb-2 mb-md-0">
+              <div class="mr-2">
+                <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('logout') }}" >Sign Out</a>
+              </div>
+            </div>         
+          </div>
 
-            </tbody>
-          </table>
-          <br><br>
-
-      <!-- Modal -->
-      <div class="modal fade" id="entryform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content bg-dark">
-            <div class="modal-header">
-              <h5 class="modal-title text-white" id="exampleModalLabel">New Racket</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span class="text-white" aria-hidden="true">&times;</span>
-              </button>
+          <!-- Dashboard Analytics -->
+          <div class="container m-0">
+            <div class="row py-5 px-2" style="background-color: #f0f0f0">
+              <div class="col-sm dash" style="background-color:#B7E7F5">
+                One of four columns
+              </div>
+              <div class="col-sm dash">
+                One of four columns
+              </div>
+              <div class="col-sm dash">
+                One of four columns
+              </div>
+              <div class="col-sm dash">
+                One of four columns
+              </div>
             </div>
-            <div class="modal-body">
-              <form action="/racket" class="bg-dark text-white" method="POST" >
+          </div>
+        
+        <div style="background-color:white">
+            <div class="row px-5 py-3" >
+              <div class="col-10 h4">
+                <h4> Racket Queue </h4>
+              </div>
+              <div class="col-2">
+                <button type="button" class="btn prpbtn" data-toggle="modal" data-target="#entryform">
+                  + Add Racket
+                </button>
+              </div>
+            </div>
+          </div>
 
-                <label for='pname'>Player Name</label>    
-                <input type="'text" id="pname" name="player_name" class="form-control bg-dark rounded-0 text-white border-0" placeholder="Player Name" required ><br>
-        
-                <label for='pnumber'>Phone Number</label>    
-                <input type="'tel" id="pnumber" name="phone_number" class="form-control bg-dark rounded-0 text-white border-0" placeholder="Phone Number" required ><br>
-        
-        
-        
-                <label for='rbrand'>Racquet Brand</label>    
-                <select id="rbrand" name="racket_brand" class="form-control bg-dark rounded-0 text-white border-0" required>
-                  <option value="Wilson">Wilson</option>
-                  <option value="Babolat">Babolat</option>
-                  <option value="Head">Head</option>
-                  <option value="Yonex">Yonex</option>
-                  <option value="Prince">Prince</option>
-                  <option value="Dunlop">Dunlop</option>
-                  <option value="Tecnifibre">Tecnifibre</option>
-                </select>
-                <br>
-        
-                <label for="rmodel">Racquet Model</label>   
-                <input type="text" id="rmodel" name="racket_model" class="form-control bg-dark rounded-0 text-white border-0" placeholder="Racquet Model" required><br>
-        
-                <label for='smain'>String Mains</label>    
-                <select id="smain" name="string_main" class="form-control bg-dark rounded-0 text-white border-0">
-                 <option value="Hyper G">Hyper G</option>
-                 <option value="Barbwire">Barbwire</option>
-                 <option value="Tourbite">Tourbite</option>
-                 <option value="Own String">Vanquish</option>
-                 <option value="Own String">Synthetic</option>
-                 <option value="Own String">Own String</option>
-                </select><br>
-        
-                <label for='scross'>String Crosses</label>
-                <select id="scross" name="string_cross" class="form-control bg-dark rounded-0 text-white border-0" required>
-                    <option value="Hyper G">Hyper G</option>
-                    <option value="Barbwire">Barbwire</option>
-                    <option value="Tourbite">Tourbite</option>
-                    <option value="Own String">Vanquish</option>
-                    <option value="Own String">Synthetic</option>
+
+            <!-- Queue Table -->
+
+            <div class="table-responsive">
+            <table class="table table-light table-hover w-100 d-block d-md-table" style="width: 1200px; margin:auto ; background-color: white" id="queue">
+              <thead>
+                <tr class="text-center">
+                  <th scope="col">Brand</th>
+                  <th scope="col">Model</th>
+                  <th scope="col">Mains</th>
+                  <th scope="col">Cross</th>
+                  <th scope="col">Tension</th>
+                  <th scope="col">Stringer</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Paid</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for racket in rackets %}
+                      <tr class="text-center">
+                        <form action="/racket/{{ racket.id}}" method="POST">                    
+                          <td class="align-middle">{{racket.racket_brand}}</td>
+                          <td class="align-middle">{{racket.racket_model}}</td>
+                          <td class="align-middle">{{racket.string_main}}</td>
+                          <td class="align-middle">{{racket.string_cross}}</td>
+                          <td class="align-middle">{{racket.tension}}</td>
+                          <td class="align-middle"> 
+                            <select value="{{racket.stringer}}" name="stringer" class="select-picker bg-light border-0"> 
+                              <option value="" {% if racket.stringer==None %} selected {% endif %}>None</option>
+                              <option value="Diego" {% if racket.stringer=="Diego" %} selected {% endif %}>Diego</option>
+                              <option value="Jaime" {% if racket.stringer=="Jaime" %} selected {% endif %}>Jaime</option>
+                              <option value="Mauricio" {% if racket.stringer=="Mauricio" %} selected {% endif %}>Mauricio</option>
+                              <option value="Jacob" {% if racket.stringer=="Jacob" %} selected {% endif %}>Jacob</option>
+                              <option value="Madi" {% if racket.stringer=="Madi" %} selected {% endif %}>Madi</option>
+                            </select>
+                          </td>                          
+                          <td class="align-middle">
+                            <select value="{{racket.status}}" class="select-picker bg-light border-0" name="status">
+                              <option {% if racket.status=="In Progress" %} selected {% endif %} value="In Progress">In Progress</option>
+                              <option {% if racket.status=="Finished" %} selected {%endif%} value="Finished">Finished</option>
+                            </select>
+                          </td>
+                          <td class="align-middle">  
+                              <input type="checkbox" name="paid" {% if racket.payment==True %} checked {% endif %}></input>
+                          </td>      
+                                      
+                          <td class="align-middle">
+                           <button type="submit" class="btn prpbtn">Save</a>
+                          </td>
+  
+                           <td>
+                            <div class="dropdown show">
+                              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">Edit</a>                     
+                                <a class="dropdown-item" href="#">Delete</a>
+                                <a class="dropdown-item" href="#">Info</a>
+                              </div>
+                            </div>
+                            </td>                        
+                        </form>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+          </div> 
+  
+        <!-- Modal -->
+        <div class="modal fade" id="entryform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content bg-light">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Racket</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span class="text-white" aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="/racket" class="bg-light" method="POST" >
+  
+                  <label for='pname'>Player Name</label>    
+                  <input type="'text" id="pname" name="player_name" class="form-control bg-light rounded-0 border-0" placeholder="Player Name" required ><br>
+          
+                  <label for='pnumber'>Phone Number</label>    
+                  <input type="'tel" id="pnumber" name="phone_number" class="form-control bg-light rounded-0 border-0" placeholder="Phone Number" required ><br>
+                 
+                  <label for='rbrand'>Racket Brand</label>    
+                  <select id="rbrand" name="racket_brand" class="form-control bg-light rounded-0 border-0" required>
+                    <option value="Wilson">Wilson</option>
+                    <option value="Babolat">Babolat</option>
+                    <option value="Head">Head</option>
+                    <option value="Yonex">Yonex</option>
+                    <option value="Prince">Prince</option>
+                    <option value="Dunlop">Dunlop</option>
+                    <option value="Tecnifibre">Tecnifibre</option>
+                  </select>
+                  <br>
+          
+                  <label for="rmodel">Racket Model</label>   
+                  <input type="text" id="rmodel" name="racket_model" class="form-control bg-light rounded-0 border-0" placeholder="Racket Model" required><br>
+          
+                  <label for='smain'>String Mains</label>    
+                  <select id="smain" name="string_main" class="form-control bg-light rounded-0 border-0">
+                   <option value="Hyper G">Hyper G</option>
+                   <option value="Barbwire">Barbwire</option>
+                   <option value="Tourbite">Tourbite</option>
+                   <option value="Own String">Vanquish</option>
+                   <option value="Own String">Synthetic</option>
                    <option value="Own String">Own String</option>
-                </select><br>
-        
-                <label for='tens'>String Tension</label>    
-                <input type="'number" id="tens" name="tension" class="form-control bg-dark rounded-0 text-white border-0" placeholder="String Tension" required><br>
-        
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Add New Racket</button>
-        
-              </form>
+                  </select><br>
+          
+                  <label for='scross'>String Crosses</label>
+                  <select id="scross" name="string_cross" class="form-control bg-light rounded-0 border-0" required>
+                      <option value="Hyper G">Hyper G</option>
+                      <option value="Barbwire">Barbwire</option>
+                      <option value="Tourbite">Tourbite</option>
+                      <option value="Own String">Vanquish</option>
+                      <option value="Own String">Synthetic</option>
+                     <option value="Own String">Own String</option>
+                  </select><br>
+          
+                  <label for='tens'>String Tension</label>    
+                  <input type="number" id="tens" name="tension" class="form-control bg-light rounded-0 border-0" placeholder="String Tension" required><br>
+  
+                  <label for='paid'>Paid</label>    
+                  <input type="checkbox" id="paid" name="paid" class="form-control bg-light rounded-0 border-0"> <br>
+  
+                  <button type="submit" class="btn prpbtn btn-lg btn-block">Add New Racket</button>
+          
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       <!-- Bootstrap JS imports -->
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
