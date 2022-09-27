@@ -42,6 +42,7 @@ class RacketForm(db.Model):
     string_cross = db.Column(db.String(80), unique=False, nullable=False)
     tension = db.Column(db.Integer, unique=False, nullable=False)
     status = db.Column(db.String(80), unique=False, nullable=False)
+    payment = db.Column(db.Boolean, unique=False, nullable=False)
     created_on = db.Column(DateTime(timezone=True), server_default=func.now())
     updated_on = db.Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
  
@@ -99,6 +100,7 @@ def rackets():
             string_cross = request.form.get('string_cross'),
             tension = request.form.get('tension'),
             status = "In Progress",
+            payment = request.form.get('paid') == 'on',
             created_on = request.form.get('created_on'),
             updated_on = request.form.get('updated_on')
             ) 
@@ -124,6 +126,7 @@ def update(racket_id):
         racket_request = RacketForm.query.filter_by(id=racket_id).first()
         racket_request.status = request.form.get('status')
         racket_request.stringer = request.form.get('stringer')
+        racket_request.payment = request.form.get('paid') == 'on'
         db.session.commit()
         return redirect(url_for('rackets'))
 
