@@ -160,6 +160,27 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+@app.route('/history', methods= ["GET"])
+@login_required
+def history():
+    return render_template('history.html')
+
+@app.route('/inventory', methods= ["GET"])
+@login_required
+def inventory():
+    return render_template('inventory.html')
+
+@app.route('/stringers', methods= ["GET"])
+@login_required
+def stringers():
+    return render_template('stringers.html')
+
+@app.route('/customers', methods= ["GET"])
+@login_required
+def customers():
+    return render_template('customers.html')
+
+
 # NOTHING BELOW THIS LINE NEEDS TO CHANGE
 # this route will test the database connection and nothing more
 

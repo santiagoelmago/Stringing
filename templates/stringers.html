@@ -15,7 +15,7 @@
         display: none;
       }
       .prpbtn {
-        background-color: #58BFFD;
+        background-color: #8672DE;
         color: white
       }
       .dash {
@@ -33,8 +33,8 @@
   <body class="bg-light">
   <div class="container-fluid">
     <div class="row">         
-      <nav class="col-md-2 d-none d-md-block sidebar border-right border-top" style="background-color: white">
-        <h4 class="text-center p-4" style="color:#58BFFD">StringFlow</h4>
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar border-right border-top"  style="background-color:#ffffff">
+        <h4 class="text-center h4 p-4" style="color:#58BFFD">StringFlow</h4>
 
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
@@ -45,7 +45,7 @@
               </a>
             </li>
             <li class="nav-item my-3">
-              <a class="nav-link"  href="{{ url_for('inventory') }}" style="color:black">
+              <a class="nav-link" href="{{ url_for('inventory') }}" style="color:black">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12H16c-.7 2-2 3-4 3s-3.3-1-4-3H2.5"/><path d="M5.5 5.1L2 12v6c0 1.1.9 2 2 2h16a2 2 0 002-2v-6l-3.4-6.9A2 2 0 0016.8 4H7.2a2 2 0 00-1.8 1.1z"/></svg>
                 Inventory
               </a>
@@ -64,7 +64,7 @@
             </li>
             <li class="nav-item my-3">
               <a class="nav-link" href="{{ url_for('stringers') }}" style="color:black">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg>
                 Stringers
               </a>
             </li>
@@ -73,66 +73,16 @@
       </nav> 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 p-0"><div class="table-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
 
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3"  style="background-color:#f0f0f0">
-            <h4 class="col-8 sh4 ">Welcome back!</h4>   
-            <div class="btn-toolbar pb-2 mb-md-0">
-              <div class="mr-5">
-                <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('logout') }}" >Sign Out</a>
-              </div>
-            </div>         
-          </div>
-
-          <div class="pl-3" style="background-color: #f0f0f0;">
-            <span> Here's whats happening today.</span>
-          </div>
 
           <!-- Dashboard Analytics -->
-          <div class="container m-0">
-            <div class="row py-4 px-2" style="background-color: #f0f0f0">
-              <div class="col-sm dash">
-                New Orders
-                <svg style="position: relative; left: 90px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#58BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <div>
-                  <br>
-                  <h2>12</h2>
-                </div>
-              </div>
-              <div class="col-sm dash">
-                Rackets finished today
-                <svg style="position: relative; left: 18px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#58BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <div>
-                  <br>
-                  <h2>8</h2>
-                </div>
-              </div>
-              <div class="col-sm dash">
-                Orders this week
-                <svg style="position: relative; left: 55px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#58BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="20.5" r="1"/><circle cx="18" cy="20.5" r="1"/><path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1"/></svg>
-                <div>
-                  <br>
-                  <h2>142</h2>
-                </div>
-              </div>
-              <div class="col-sm dash">
-                Customers this week
-                <svg style="position: relative; left: 20px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#58BFFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
-                <div>
-                  <br>
-                  <h2>128</h2>
-                </div>
-              </div>
-            </div>
-          </div>
+              
         
           <div class="container m-0 py-3" style="background-color: white">
             <div class="row pl-1 pt-2">
               <div class="col-10">
-                <h4>Racket Queue</h4>
+                <h4>Stringers</h4>
               </div>
               <div class="col-2">
-                <button type="button" class="btn fa prpbtn" data-toggle="modal" data-target="#entryform" style="color: white;">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
-                </button>
               </div>
             </div>
           </div>
@@ -143,15 +93,8 @@
             <table class="table table-light table-hover w-100 d-block d-md-table" style="width: 1200px; margin:auto ; background-color: white" id="queue">
               <thead>
                 <tr class="text-center">
-                  <th scope="col">Brand</th>
-                  <th scope="col">Model</th>
-                  <th scope="col">Mains</th>
-                  <th scope="col">Cross</th>
-                  <th scope="col">Tension</th>
-                  <th scope="col">Stringer</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Paid</th>
-                  <th scope="col"></th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Rackets Finished </th>
                 </tr>
               </thead>
               <tbody>
@@ -184,7 +127,7 @@
                           </td>      
                                       
                           <td class="align-middle">
-                           <button type="submit" class="btn prpbtn">Done</a>
+                           <button type="submit" class="btn prpbtn">Save</a>
                           </td>
   
                            <td>
@@ -204,73 +147,6 @@
             </table>
           </div> 
   
-        <!-- Modal -->
-        <div class="modal fade" id="entryform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content bg-light">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New Racket</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span class="text-white" aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form action="/racket" class="bg-light" method="POST" >
-  
-                  <label for='pname'>Player Name</label>    
-                  <input type="'text" id="pname" name="player_name" class="form-control bg-light rounded-0 border-0" placeholder="Player Name" required ><br>
-          
-                  <label for='pnumber'>Phone Number</label>    
-                  <input type="'tel" id="pnumber" name="phone_number" class="form-control bg-light rounded-0 border-0" placeholder="Phone Number" required ><br>
-                 
-                  <label for='rbrand'>Racket Brand</label>    
-                  <select id="rbrand" name="racket_brand" class="form-control bg-light rounded-0 border-0" required>
-                    <option value="Wilson">Wilson</option>
-                    <option value="Babolat">Babolat</option>
-                    <option value="Head">Head</option>
-                    <option value="Yonex">Yonex</option>
-                    <option value="Prince">Prince</option>
-                    <option value="Dunlop">Dunlop</option>
-                    <option value="Tecnifibre">Tecnifibre</option>
-                  </select>
-                  <br>
-          
-                  <label for="rmodel">Racket Model</label>   
-                  <input type="text" id="rmodel" name="racket_model" class="form-control bg-light rounded-0 border-0" placeholder="Racket Model" required><br>
-          
-                  <label for='smain'>String Mains</label>    
-                  <select id="smain" name="string_main" class="form-control bg-light rounded-0 border-0">
-                   <option value="Hyper G">Hyper G</option>
-                   <option value="Barbwire">Barbwire</option>
-                   <option value="Tourbite">Tourbite</option>
-                   <option value="Own String">Vanquish</option>
-                   <option value="Own String">Synthetic</option>
-                   <option value="Own String">Own String</option>
-                  </select><br>
-          
-                  <label for='scross'>String Crosses</label>
-                  <select id="scross" name="string_cross" class="form-control bg-light rounded-0 border-0" required>
-                      <option value="Hyper G">Hyper G</option>
-                      <option value="Barbwire">Barbwire</option>
-                      <option value="Tourbite">Tourbite</option>
-                      <option value="Own String">Vanquish</option>
-                      <option value="Own String">Synthetic</option>
-                     <option value="Own String">Own String</option>
-                  </select><br>
-          
-                  <label for='tens'>String Tension</label>    
-                  <input type="number" id="tens" name="tension" class="form-control bg-light rounded-0 border-0" placeholder="String Tension" required><br>
-  
-                  <label for='paid'>Paid</label>    
-                  <input type="checkbox" id="paid" name="paid" class="form-control bg-light rounded-0 border-0"> <br>
-  
-                  <button type="submit" class="btn prpbtn btn-lg btn-block">Add New Racket</button>
-          
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
       <!-- Bootstrap JS imports -->
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
