@@ -130,6 +130,12 @@ def update(racket_id):
         db.session.commit()
         return redirect(url_for('rackets'))
 
+@app.route('/racket/<int:racket_id>/delete', methods= ["GET"])
+@login_required
+def delete_confirmation(racket_id):
+    racket = RacketForm.query.filter_by(id=racket_id).first()
+    return render_template('delete_confirmation.html', racket=racket)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -179,6 +185,7 @@ def stringers():
 @login_required
 def customers():
     return render_template('customers.html')
+
 
 
 # NOTHING BELOW THIS LINE NEEDS TO CHANGE
