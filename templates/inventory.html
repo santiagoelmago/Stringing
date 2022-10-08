@@ -33,38 +33,38 @@
   <body class="bg-light">
   <div class="container-fluid">
     <div class="row">         
-      <nav class="col-md-2 d-none d-md-block bg-light sidebar border-right border-top"  style="background-color:#ffffff">
-        <h4 class="text-center p-4" style="color:#58BFFD">StringFlow</h4>
+      <nav class="col-md-2 d-none d-md-block sidebar border-right border-top"  style="background-color:#F7F6F1">
+        <h4 class="text-center p-4" style="color:#24282C">StringFlow</h4>
 
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item my-3">
-              <a class="nav-link active" href="{{ url_for('rackets') }}"  style="color:black;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+              <a class="nav-link active" href="{{ url_for('rackets') }}"  style="color:#24282C;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 Dashboard <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item my-3">
-              <a class="nav-link"  href="" style="color:black">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12H16c-.7 2-2 3-4 3s-3.3-1-4-3H2.5"/><path d="M5.5 5.1L2 12v6c0 1.1.9 2 2 2h16a2 2 0 002-2v-6l-3.4-6.9A2 2 0 0016.8 4H7.2a2 2 0 00-1.8 1.1z"/></svg>
+              <a class="nav-link"  href="" style="color:#24282C">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12H16c-.7 2-2 3-4 3s-3.3-1-4-3H2.5"/><path d="M5.5 5.1L2 12v6c0 1.1.9 2 2 2h16a2 2 0 002-2v-6l-3.4-6.9A2 2 0 0016.8 4H7.2a2 2 0 00-1.8 1.1z"/></svg>
                 Inventory
               </a>
             </li>
             <li class="nav-item my-3">
-              <a class="nav-link" href="{{ url_for('customers') }}" style="color:black">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <a class="nav-link" href="{{ url_for('customers') }}" style="color:#24282C">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 Customers
               </a>
             </li>
             <li class="nav-item my-3">
-              <a class="nav-link" href="{{ url_for('history') }}" style="color:black">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <a class="nav-link" href="{{ url_for('history') }}" style="color:#24282C">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 Racket history
               </a>
             </li>
             <li class="nav-item my-3">
-              <a class="nav-link" href="{{ url_for('stringers') }}" style="color:black">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg>
+              <a class="nav-link" href="{{ url_for('stringers') }}" style="color:#24282C">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg>
                 Stringers
               </a>
             </li>
@@ -77,7 +77,7 @@
           <!-- Dashboard Analytics -->
               
         
-          <div class="container m-0 py-3" style="background-color: white">
+          <div class="container m-0 py-3" style="background-color: #F7F6F1">
             <div class="row pl-1 pt-2">
               <div class="col-10">
                 <h4>Inventory</h4>
@@ -88,64 +88,44 @@
           </div>
 
             <!-- Queue Table -->
-
             <div class="table-responsive">
-            <table class="table table-light table-hover w-100 d-block d-md-table" style="width: 1200px; margin:auto ; background-color: white" id="queue">
-              <thead>
-                <tr class="text-center">
-                  <th scope="col">Brand</th>
-                  <th scope="col">Model</th>
-                </tr>
-              </thead>
-              <tbody>
-                  {% for racket in rackets %}
-                      <tr class="text-center">
-                        <form action="/racket/{{ racket.id}}" method="POST">                    
-                          <td class="align-middle">{{racket.racket_brand}}</td>
-                          <td class="align-middle">{{racket.racket_model}}</td>
-                          <td class="align-middle">{{racket.string_main}}</td>
-                          <td class="align-middle">{{racket.string_cross}}</td>
-                          <td class="align-middle">{{racket.tension}}</td>
-                          <td class="align-middle"> 
-                            <select value="{{racket.stringer}}" name="stringer" class="select-picker bg-light border-0"> 
-                              <option value="" {% if racket.stringer==None %} selected {% endif %}>None</option>
-                              <option value="Diego" {% if racket.stringer=="Diego" %} selected {% endif %}>Diego</option>
-                              <option value="Jaime" {% if racket.stringer=="Jaime" %} selected {% endif %}>Jaime</option>
-                              <option value="Mauricio" {% if racket.stringer=="Mauricio" %} selected {% endif %}>Mauricio</option>
-                              <option value="Jacob" {% if racket.stringer=="Jacob" %} selected {% endif %}>Jacob</option>
-                              <option value="Madi" {% if racket.stringer=="Madi" %} selected {% endif %}>Madi</option>
-                            </select>
-                          </td>                          
-                          <td class="align-middle">
-                            <select value="{{racket.status}}" class="select-picker bg-light border-0" name="status">
-                              <option {% if racket.status=="In Progress" %} selected {% endif %} value="In Progress">In Progress</option>
-                              <option {% if racket.status=="Finished" %} selected {%endif%} value="Finished">Finished</option>
-                            </select>
-                          </td>
-                          <td class="align-middle">  
-                              <input type="checkbox" name="paid" {% if racket.payment==True %} checked {% endif %}></input>
-                          </td>      
-                                      
-                          <td class="align-middle">
-                           <button type="submit" class="btn prpbtn">Save</a>
-                          </td>
-  
-                           <td>
-                            <div class="dropdown show">
-                              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Edit</a>                     
-                                <a class="dropdown-item" href="#">Delete</a>
-                                <a class="dropdown-item" href="#">Info</a>
-                              </div>
-                            </div>
-                            </td>                        
-                        </form>
-                      </tr>
-                  {% endfor %}
-              </tbody>
-            </table>
-          </div> 
+              <table class="table table-hover w-100 d-block d-md-table" style="width: 1200px; margin:auto ; background-color: white" id="queue">
+                <thead>
+                  <tr class="text-center">
+                    <th scope="col">Brand</th>
+                    <th scope="col">Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="text-center">
+                    <td>Solinco</td>
+                    <td>Hyper G</td>
+                  </tr>
+                  <tr class="text-center">
+                    <td>Solinco</td>
+                    <td>Hyper G v2</td>
+                  </tr>
+                  <tr class="text-center">
+                    <td>Solinco</td>
+                    <td>Barbwire</td>
+                  </tr>
+                  <tr class="text-center">
+                    <td>Solinco</td>
+                    <td>Vanquish</td>
+                  </tr>
+                  <tr class="text-center">
+                    <td>Solinco</td>
+                    <td>Isospeed</td>
+                  </tr>
+                  <tr class="text-center">
+                    <td>Prince</td>
+                    <td>synthetic Gut</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+
   
       <!-- Bootstrap JS imports -->
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
