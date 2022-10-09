@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import DateTime
+from sqlalchemy import DateTime, cast, Date
 from sqlalchemy.sql import text, func
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
+from datetime import date, datetime
 
 
 app = Flask(__name__)
@@ -43,8 +44,8 @@ class RacketForm(db.Model):
     tension = db.Column(db.Integer, unique=False, nullable=False)
     status = db.Column(db.String(80), unique=False, nullable=False)
     payment = db.Column(db.Boolean, unique=False, nullable=False)
-    created_on = db.Column(DateTime(timezone=True), server_default=func.now())
-    updated_on = db.Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    created_on = db.Column(DateTime(timezone=False), server_default=func.now())
+    updated_on = db.Column(DateTime(timezone=False), server_default=func.now(), onupdate=func.now())
  
     def __repr__(self):
         return '<RacketForm %r>' % self.player_name
@@ -109,8 +110,10 @@ def rackets():
         db.session.commit()
         return redirect(url_for('rackets'))
     if request.method == "GET":
+        finished_today = RacketForm.query.filter(func.date(RacketForm.updated_on) == date.today(), RacketForm.status == "Finished").count()
+        orders_today = RacketForm.query.filter(func.date(RacketForm.created_on) == date.today()).count()
         rackets = RacketForm.query.order_by(RacketForm.status.desc(), RacketForm.created_on.desc()).all()
-        return render_template("racket_queue.html", rackets=rackets)
+        return render_template("racket_queue.html", rackets=rackets, orders_today=orders_today, finished_today=finished_today)
 
 
 
