@@ -54,10 +54,11 @@
         width: 0px;
       }
 
-      .iframe-visible {
+      #delete-confirmation-iframe {
         display: block;
         height: 500px;
         width: 500px;
+        background: #F7F6F1;
       }
 
     </style>
@@ -308,11 +309,13 @@
           </div>
         </div>
 
-      <iframe class="iframe-hidden" id="delete-confirmation-iframe">
-
-      </iframe>
-
-
+      <div class="modal" id="delete-confirmation-modal" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <iframe id="delete-confirmation-iframe" frameBorder=0></iframe>
+          </div>
+      </div>
+      
 
       <!-- Bootstrap JS imports -->
 
@@ -324,14 +327,37 @@
           let racketId = event.target.dataset.racketid;
           let iframe = document.querySelector('#delete-confirmation-iframe');
           iframe.src = `/racket/${racketId}/delete`;
-          iframe.classList.add('iframe-visible')
 
-
+          $('#delete-confirmation-modal').modal({keyboard: false});
         }
 
         function setupListeners() {
           document.querySelectorAll('.delete-item').forEach((deleteButton) => {
             deleteButton.addEventListener('click', deleteRaquetOrder);
+          });
+
+          window.addEventListener('message', (event) => {
+            // only read events from our own app (for security)
+            if (event.origin !== window.location.origin) return;
+
+            let message;
+
+            try {
+              message = JSON.parse(event.data);
+            } catch (e) {
+              console.error('unable to parse post message', event);
+              // cant intepret post message give up.
+              return;
+            }
+          
+            if (message.message === 'closeDeleteDialog') {
+              $('#delete-confirmation-modal').modal('hide');
+            }
+
+            if (message.reload) {
+              window.location.reload();
+            }
+
           });
         }
         setupListeners()

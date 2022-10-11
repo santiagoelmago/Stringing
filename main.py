@@ -133,11 +133,19 @@ def update(racket_id):
         db.session.commit()
         return redirect(url_for('rackets'))
 
-@app.route('/racket/<int:racket_id>/delete', methods= ["GET"])
+@app.route('/racket/<int:racket_id>/delete', methods= ["GET", "POST"])
 @login_required
-def delete_confirmation(racket_id):
+def delete(racket_id):
     racket = RacketForm.query.filter_by(id=racket_id).first()
-    return render_template('delete_confirmation.html', racket=racket)
+
+    if request.method == "POST":
+        db.session.delete(racket)
+        db.session.commit()
+        return render_template('delete_success.html', racket=racket)
+
+
+    if request.method == "GET":
+        return render_template('delete_confirmation.html', racket=racket)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
