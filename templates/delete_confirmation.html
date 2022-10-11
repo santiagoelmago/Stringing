@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete the racket for {{racket.player_name}}?</h3>
+
+
+    <button class="btn btn button-yes" data-confirms="true">
+        yes
+    </button>
+
+    <button type=button class="btn btn-primary btn-lg button-no" data-confirms="false">
+        No
+    </button>
+            
+
+    <script>
+        window.StringFlow = {
+            racketId: {{racket.id}}
+        };
+        
+        document.querySelector('.button-no').addEventListener('click', sendAnswer.bind(null, false));
+        document.querySelector('.button-yes').addEventListener('click', sendAnswer.bind(null, true));
+        function sendAnswer(confirms) {
+            console.log('This works', window.StringFlow.racketId)
+            window.parent.postMessage(JSON.stringify({message: 'deleteConfirmation', confirms, racketId: window.StringFlow.racketId}))
+
+        }
+    </script>
+</body>
+</html>

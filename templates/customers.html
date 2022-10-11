@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+    <style>
+
+      .hidden {
+        display: none;
+      }
+      .prpbtn {
+        background-color: #8672DE;
+        color: white
+      }
+      .dash {
+        background-color: white;
+        border-radius: 10px;
+        padding: 16px;
+        margin-left: 10px;
+        margin-right: 10px;
+        height: 120px
+      }
+
+    </style>
+  </head>
+
+  <body class="bg-light">
+  <div class="container-fluid">
+    <div class="row">         
+      <nav class="col-md-2 d-none d-md-block sidebar border-right border-top" style="background-color: #F7F6F1">        <h4 class="text-center p-4" style="color:#24282C">StringFlow</h4>
+
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item my-3">
+              <a class="nav-link active" href="{{ url_for('rackets') }}"  style="color:#24282C;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Dashboard <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item my-3">
+              <a class="nav-link" href="{{ url_for('inventory') }}" style="color:#24282C">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12H16c-.7 2-2 3-4 3s-3.3-1-4-3H2.5"/><path d="M5.5 5.1L2 12v6c0 1.1.9 2 2 2h16a2 2 0 002-2v-6l-3.4-6.9A2 2 0 0016.8 4H7.2a2 2 0 00-1.8 1.1z"/></svg>
+                Inventory
+              </a>
+            </li>
+            <li class="nav-item my-3">
+              <a class="nav-link" href="{{ url_for('customers') }}" style="color:#24282C">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                Customers
+              </a>
+            </li>
+            <li class="nav-item my-3">
+              <a class="nav-link" href="{{ url_for('history') }}" style="color:#24282C">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Racket history
+              </a>
+            </li>
+            <li class="nav-item my-3">
+              <a class="nav-link" href="{{ url_for('stringers') }}" style="color:#24282C">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg>
+                Stringers
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav> 
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 p-0"><div class="table-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+
+
+          <!-- Dashboard Analytics -->
+              
+        
+          <div class="container m-0 py-3" style="background-color: #F7F6F1">
+            <div class="row pl-1 pt-2">
+              <div class="col-10">
+                <h4>Customers</h4>
+              </div>
+              <div class="col-2">
+              </div>
+            </div>
+          </div>
+
+            <!-- Queue Table -->
+
+            <div class="table-responsive">
+            <table class="table table-light table-hover w-100 d-block d-md-table" style="width: 1200px; margin:auto ; background-color: white" id="queue">
+              <thead>
+                <tr class="text-center">
+                  <th scope="col">Name</th>
+                  <th scope="col">Phone Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for racket in rackets %}
+                      <tr class="text-center">
+                        <form action="/racket/{{ racket.id}}" method="POST">                    
+                          <td class="align-middle">{{racket.player_name}}</td>
+                          <td class="align-middle">{{racket.phone_number}}</td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+          </div> 
+  
+      <!-- Bootstrap JS imports -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>
+
