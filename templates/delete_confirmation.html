@@ -1,36 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h3>Are you sure you want to delete the racket for {{racket.player_name}}?</h3>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+ 
+    <title>Racket Delete Confirmation</title>
+    <style>
+      .prpbtn {
+        background-color: #D4F274;
+        color: black;
+        border-radius: 10px;
+      }
+
+      .confirmation-buttons {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>
+      Are you sure you want to delete the racket for {{racket.player_name}}?
+    </h3>
 
 
-    <button class="btn btn button-yes" data-confirms="true">
+
+    <div class="confirmation-buttons">
+    <button class="btn button-no" data-confirms="false">No</button>
+
+    <form action="/racket/{{ racket.id}}/delete" method="POST">
+      <button type="submit" class="btn prpbtn button-yes" data-confirms="true">
         yes
-    </button>
+      </button>
+    </form>
+    </div>
 
-    <button type=button class="btn btn-primary btn-lg button-no" data-confirms="false">
-        No
-    </button>
-            
 
     <script>
-        window.StringFlow = {
-            racketId: {{racket.id}}
-        };
-        
-        document.querySelector('.button-no').addEventListener('click', sendAnswer.bind(null, false));
-        document.querySelector('.button-yes').addEventListener('click', sendAnswer.bind(null, true));
-        function sendAnswer(confirms) {
-            console.log('This works', window.StringFlow.racketId)
-            window.parent.postMessage(JSON.stringify({message: 'deleteConfirmation', confirms, racketId: window.StringFlow.racketId}))
+      document
+        .querySelector(".button-no")
+        .addEventListener("click", cancelDelete);
 
-        }
+      function cancelDelete() {
+        window.parent.postMessage(
+          JSON.stringify({ message: "closeDeleteDialog" })
+        );
+      }
     </script>
-</body>
+  </body>
 </html>
