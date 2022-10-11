@@ -1,36 +1,48 @@
+"""Stringing app server.
+
+Main module that hold CRUD logic for app operations.
+"""
+
+import os
+from datetime import date
+
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import DateTime, cast, Date
+from sqlalchemy import DateTime
 from sqlalchemy.sql import text, func
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
-from datetime import date, datetime
 
 
 app = Flask(__name__)
 
-db_name = 'racketinfo.db'
 bcrypt = Bcrypt(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_name
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+    'DATABASE_URI') if os.getenv('DATABASE_URI') else 'sqlite:///racketinfo.db'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
-app.config['SECRET_KEY'] = 'thisisasecretkey'
+# Secret key will come from env variables in prod.
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') if os.getenv(
+    'SECRET_KEY') else 'thisisasecretkey'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
 # this variable, db, will be used for all SQLAlchemy commands
 db = SQLAlchemy(app)
+
 
 class RacketForm(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,15 +57,18 @@ class RacketForm(db.Model):
     status = db.Column(db.String(80), unique=False, nullable=False)
     payment = db.Column(db.Boolean, unique=False, nullable=False)
     created_on = db.Column(DateTime(timezone=False), server_default=func.now())
-    updated_on = db.Column(DateTime(timezone=False), server_default=func.now(), onupdate=func.now())
- 
+    updated_on = db.Column(DateTime(timezone=False),
+                           server_default=func.now(), onupdate=func.now())
+
     def __repr__(self):
         return '<RacketForm %r>' % self.player_name
 
-class User(db.Model,UserMixin):
+
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
+
 
 class RegisterForm(FlaskForm):
     username = StringField(validators=[
@@ -81,48 +96,51 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Login')
 
+
 @app.route("/")
 @login_required
 def home():
     return render_template('home.html')
 
-    #Lines 38–53 provide a model so that Python can translate the racket info table.
 
-@app.route("/racket", methods= ["GET", "POST"])
+@app.route("/racket", methods=["GET", "POST"])
 @login_required
 def rackets():
     if request.method == "POST":
         racket_form_response = RacketForm(
-            player_name = request.form.get('player_name'), 
-            phone_number = request.form.get('phone_number'), 
-            racket_brand = request.form.get('racket_brand'),
-            racket_model = request.form.get('racket_model'),
-            string_main = request.form.get('string_main'),
-            string_cross = request.form.get('string_cross'),
-            tension = request.form.get('tension'),
-            status = "In Progress",
-            payment = request.form.get('paid') == 'on',
-            created_on = request.form.get('created_on'),
-            updated_on = request.form.get('updated_on')
-            ) 
+            player_name=request.form.get('player_name'),
+            phone_number=request.form.get('phone_number'),
+            racket_brand=request.form.get('racket_brand'),
+            racket_model=request.form.get('racket_model'),
+            string_main=request.form.get('string_main'),
+            string_cross=request.form.get('string_cross'),
+            tension=request.form.get('tension'),
+            status="In Progress",
+            payment=request.form.get('paid') == 'on',
+            created_on=request.form.get('created_on'),
+            updated_on=request.form.get('updated_on')
+        )
 
         db.session.add(racket_form_response)
         db.session.commit()
         return redirect(url_for('rackets'))
     if request.method == "GET":
-        finished_today = RacketForm.query.filter(func.date(RacketForm.updated_on) == date.today(), RacketForm.status == "Finished").count()
-        orders_today = RacketForm.query.filter(func.date(RacketForm.created_on) == date.today()).count()
-        rackets = RacketForm.query.order_by(RacketForm.status.desc(), RacketForm.created_on.desc()).all()
+        finished_today = RacketForm.query.filter(func.date(
+            RacketForm.updated_on) == date.today(), RacketForm.status == "Finished").count()
+        orders_today = RacketForm.query.filter(
+            func.date(RacketForm.created_on) == date.today()).count()
+        rackets = RacketForm.query.order_by(
+            RacketForm.status.desc(), RacketForm.created_on.desc()).all()
         return render_template("racket_queue.html", rackets=rackets, orders_today=orders_today, finished_today=finished_today)
 
 
-
-@app.route("/racket/new", methods= ["GET"])
+@app.route("/racket/new", methods=["GET"])
 @login_required
 def createRacket():
     return render_template('form.html')
 
-@app.route("/racket/<int:racket_id>", methods= ["POST"])
+
+@app.route("/racket/<int:racket_id>", methods=["POST"])
 @login_required
 def update(racket_id):
     if request.method == "POST":
@@ -133,7 +151,8 @@ def update(racket_id):
         db.session.commit()
         return redirect(url_for('rackets'))
 
-@app.route('/racket/<int:racket_id>/delete', methods= ["GET", "POST"])
+
+@app.route('/racket/<int:racket_id>/delete', methods=["GET", "POST"])
 @login_required
 def delete(racket_id):
     racket = RacketForm.query.filter_by(id=racket_id).first()
@@ -143,9 +162,9 @@ def delete(racket_id):
         db.session.commit()
         return render_template('delete_success.html', racket=racket)
 
-
     if request.method == "GET":
         return render_template('delete_confirmation.html', racket=racket)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -157,6 +176,7 @@ def login():
                 login_user(user)
                 return redirect(url_for('rackets'))
     return render_template('login.html', form=form)
+
 
 @ app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -171,37 +191,39 @@ def register():
 
     return render_template('register.html', form=form)
 
+
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route('/history', methods= ["GET"])
+
+@app.route('/history', methods=["GET"])
 @login_required
 def history():
     return render_template('history.html')
 
-@app.route('/inventory', methods= ["GET"])
+
+@app.route('/inventory', methods=["GET"])
 @login_required
 def inventory():
     return render_template('inventory.html')
 
-@app.route('/stringers', methods= ["GET"])
+
+@app.route('/stringers', methods=["GET"])
 @login_required
 def stringers():
     return render_template('stringers.html')
 
-@app.route('/customers', methods= ["GET"])
+
+@app.route('/customers', methods=["GET"])
 @login_required
 def customers():
     return render_template('customers.html')
 
 
-
-# NOTHING BELOW THIS LINE NEEDS TO CHANGE
-# this route will test the database connection and nothing more
-
+# This route will test the database connection and nothing more
 @app.route('/testdb')
 def testdb():
     try:
@@ -216,4 +238,4 @@ def testdb():
 
 if __name__ == '__main__':
     db.create_all()
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
