@@ -59,40 +59,11 @@
         height: 500px;
         width: 500px;
       }
-      .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 50%; /* Full width */
-        height: 50%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        padding-top: 50px;
-        opacity: 1;
-      }
-      input[type="button"] {
-        transition: all .3s;
-        border: 1px solid #ddd;
-        padding: 8px 16px;
-        text-decoration: none;
-        border-radius: 10px;
-        font-size: 15px;
-        margin: 2px;
-      }
 
-      input[type="button"]:not(.active) {
-        background-color:transparent;
+      .accent1 {
+        accent-color: #D4F274;
       }
-
-      .active {
-        background-color: #24282C;
-        color :#fff;
-      }
-
-      input[type="button"]:hover:not(.active) {
-        background-color: #ddd;
-      }
+    
     </style>
   </head>
 
@@ -111,8 +82,8 @@
               </a>
             </li>
             <li class="nav-item my-3">
-              <a class="nav-link"  hr ef="{{ url_for('inventory') }}" style="color:#8c8c8c">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#8c8c8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12H16c-.7 2-2 3-4 3s-3.3-1-4-3H2.5"/><path d="M5.5 5.1L2 12v6c0 1.1.9 2 2 2h16a2 2 0 002-2v-6l-3.4-6.9A2 2 0 0016.8 4H7.2a2 2 0 00-1.8 1.1z"/></svg>
+              <a class="nav-link"  href="{{ url_for('inventory') }}" style="color:#24282C">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12H16c-.7 2-2 3-4 3s-3.3-1-4-3H2.5"/><path d="M5.5 5.1L2 12v6c0 1.1.9 2 2 2h16a2 2 0 002-2v-6l-3.4-6.9A2 2 0 0016.8 4H7.2a2 2 0 00-1.8 1.1z"/></svg>
                 Inventory
               </a>
             </li>
@@ -165,7 +136,7 @@
               </div>
               <div class="col-sm dash">
                 Rackets finished today
-                <svg style="position: relative; left: 18px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <svg style="position: relative; left: 18px;" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                 <div>
                   <br>
                   <h2>{{finished_today}}</h2>
@@ -188,12 +159,14 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div>    
+
+          <!-- MODAL UP  -->
         
           <div class="container m-0 py-3" style="background-color: white">
             <div class="row pl-1 pt-2">
               <div class="col-10">
-                <h4>Racket Queue</h4>
+                <h5>Racket Queue</h5>
               </div>
               <div class="col-2">
                 <button type="button" class="btn fa prpbtn" data-toggle="modal" data-target="#entryform" style="color: white; border-radius: 10px; position: relative; left: 25px;">
@@ -209,6 +182,7 @@
             <table class="table table-light table-hover w-100 d-block d-md-table" style="width: 1200px; margin:auto ; background-color: white" id="queue">
               <thead>
                 <tr class="text-center">
+                  <th scope="col">Name</th>
                   <th scope="col">Brand</th>
                   <th scope="col">Model</th>
                   <th scope="col">Mains</th>
@@ -223,7 +197,8 @@
               <tbody>
                   {% for racket in rackets %}
                       <tr class="text-center">
-                        <form action="/racket/{{ racket.id}}" method="POST">                    
+                        <form action="/racket/{{ racket.id}}" method="POST">
+                          <td class="align-middle">{{racket.player_name}}</td>                  
                           <td class="align-middle">{{racket.racket_brand}}</td>
                           <td class="align-middle">{{racket.racket_model}}</td>
                           <td class="align-middle">{{racket.string_main}}</td>
@@ -247,7 +222,7 @@
                             </select>
                           </td>
                           <td class="align-middle">  
-                              <input type="checkbox" name="paid" {% if racket.payment==True %} checked {% endif %}></input>
+                              <input class="accent1" type="checkbox" name="paid" {% if racket.payment==True %} checked {% endif %}></input>
                           </td>      
                                       
                           <td class="align-middle">
@@ -270,7 +245,6 @@
               </tbody>
             </table>
           </div> 
-  
 
         <!-- Modal -->
         <div class="modal fade" id="entryform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -372,45 +346,7 @@
       </script>   
 
       <!-- PAGINATION -->
-      <script>
-        var $table = document.getElementById("queue"),
-        $n = 6,
-        $rowCount = $table.rows.length,
-        $firstRow = $table.rows[0].firstElementChild.tagName,
-        $hasHead = ($firstRow === "TH"),
-        $tr = [],
-        $i,$ii,$j = ($hasHead)?1:0,
-        $th = ($hasHead?$table.rows[(0)].outerHTML:"");
-        var $pageCount = Math.ceil($rowCount / $n);
-        if ($pageCount > 1) {
-          for ($i = $j,$ii = 0; $i < $rowCount; $i++, $ii++)
-            $tr[$ii] = $table.rows[$i].outerHTML;
-          $table.insertAdjacentHTML("afterend","<div id='buttons'></div");
-          sort(1);
-        }
-
-        function sort($p) {
-          var $rows = $th,$s = (($n * $p)-$n);
-          for ($i = $s; $i < ($s+$n) && $i < $tr.length; $i++)
-            $rows += $tr[$i];
-          
-          $table.innerHTML = $rows;
-          document.getElementById("buttons").innerHTML = pageButtons($pageCount,$p);
-          document.getElementById("id"+$p).setAttribute("class","active");
-        }
-
-
-        function pageButtons($pCount,$cur) {
-          var	$prevDis = ($cur == 1)?"disabled":"",
-            $nextDis = ($cur == $pCount)?"disabled":"",
-            $buttons = "<input type='button' value='&lt;&lt; Prev' onclick='sort("+($cur - 1)+")' "+$prevDis+">";
-          for ($i=1; $i<=$pCount;$i++)
-            $buttons += "<input type='button' id='id"+$i+"'value='"+$i+"' onclick='sort("+$i+")'>";
-          $buttons += "<input type='button' value='Next &gt;&gt;' onclick='sort("+($cur + 1)+")' "+$nextDis+">";
-          return $buttons;
-        }
-
-      </script>
+      
     </body>
 </html>
 
