@@ -45,25 +45,25 @@
               </a>
             </li>
             <li class="nav-item my-3">
-              <a class="nav-link"  href="" style="color:#24282C">
+              <a class="nav-link"  href="{{ url_for('inventory') }}" style="color:#24282C">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12H16c-.7 2-2 3-4 3s-3.3-1-4-3H2.5"/><path d="M5.5 5.1L2 12v6c0 1.1.9 2 2 2h16a2 2 0 002-2v-6l-3.4-6.9A2 2 0 0016.8 4H7.2a2 2 0 00-1.8 1.1z"/></svg>
                 Inventory
               </a>
             </li>
             <li class="nav-item my-3">
-              <a class="nav-link" href="{{ url_for('customers') }}" style="color:#24282C">
+              <a class="nav-link" h ref="{{ url_for('customers') }}" style="color:#24282C">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 Customers
               </a>
             </li>
             <li class="nav-item my-3">
-              <a class="nav-link" href="{{ url_for('history') }}" style="color:#24282C">
+              <a class="nav-link" h ref="{{ url_for('history') }}" style="color:#24282C">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 Racket history
               </a>
             </li>
             <li class="nav-item my-3">
-              <a class="nav-link" href="{{ url_for('stringers') }}" style="color:#24282C">
+              <a class="nav-link" h ref="{{ url_for('stringers') }}" style="color:#24282C">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg>
                 Stringers
               </a>
@@ -94,32 +94,46 @@
                   <tr class="text-center">
                     <th scope="col">Brand</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Price</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr class="text-center">
                     <td>Solinco</td>
                     <td>Hyper G</td>
+                    <td>Green</td>
+                    <td>Polyester</td>
+                    <td>$14.99</td>
                   </tr>
                   <tr class="text-center">
                     <td>Solinco</td>
                     <td>Hyper G v2</td>
+                    <td>Green</td>
+                    <td>Polyester</td>
+                    <td>$14.99</td>
                   </tr>
                   <tr class="text-center">
                     <td>Solinco</td>
                     <td>Barbwire</td>
+                    <td>Black</td>
+                    <td>Polyester</td>
+                    <td>$14.99</td>
                   </tr>
                   <tr class="text-center">
                     <td>Solinco</td>
                     <td>Vanquish</td>
+                    <td>Natural</td>
+                    <td>Multifilament</td>
+                    <td>$14.99</td>
                   </tr>
                   <tr class="text-center">
-                    <td>Solinco</td>
-                    <td>Isospeed</td>
-                  </tr>
-                  <tr class="text-center">
-                    <td>Prince</td>
-                    <td>synthetic Gut</td>
+                    <td>Iso Speed</td>
+                    <td>Baseline Control</td>
+                    <td>Black</td>
+                    <td>Polyester</td>
+                    <td>$14.99</td>
                   </tr>
                 </tbody>
               </table>
