@@ -26,11 +26,11 @@
       }
     </style>
   </head>
-  <body>
-    <h2>Success!</h2>
-    <p>The racket order for {{racket.player_name}} has been deleted.</p>
-
-    <button class="btn prpbtn button-close">close</button>
+  <body class="text-center mx-auto">
+      <h2 class="px-4 py-1">Success!</h2>
+      <p class="p-4"> The racket order for {{racket.player_name}} has been deleted.</p>
+      <button class="btn prpbtn mx-auto btn-lg button-close"  style="width: 200px;">close</button>
+  
 
     <script>
       document.querySelector(".button-close").addEventListener("click", () => {

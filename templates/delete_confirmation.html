@@ -17,30 +17,36 @@
         background-color: #D4F274;
         color: black;
         border-radius: 10px;
+        width: 200px;
       }
 
       .confirmation-buttons {
         display: flex;
       }
+      .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
     </style>
   </head>
   <body>
-    <h3>
+    <h4 class="p-4 text">
       Are you sure you want to delete the racket for {{racket.player_name}}?
-    </h3>
+    </h4>
 
-
-
-    <div class="confirmation-buttons">
-    <button class="btn button-no" data-confirms="false">No</button>
-
-    <form action="/racket/{{ racket.id}}/delete" method="POST">
-      <button type="submit" class="btn prpbtn button-yes" data-confirms="true">
-        yes
+    <div class="confirmation-buttons box">
+      <button class="btn btn-lg button-no" style="width: 200px;"  data-confirms="false">
+        No
       </button>
-    </form>
-    </div>
 
+      <form action="/racket/{{ racket.id}}/delete" method="POST">
+        <button type="submit" class="btn btn-lg prpbtn button-yes" data-confirms="true">
+          Yes
+        </button>
+      </form>
+    </div>
 
     <script>
       document
