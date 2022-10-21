@@ -44,8 +44,8 @@ class RacketForm(db.Model):
     tension = db.Column(db.Integer, unique=False, nullable=False)
     status = db.Column(db.String(80), unique=False, nullable=False)
     payment = db.Column(db.Boolean, unique=False, nullable=False)
-    created_on = db.Column(DateTime(timezone=False), server_default=func.now())
-    updated_on = db.Column(DateTime(timezone=False), server_default=func.now(), onupdate=func.now())
+    created_on = db.Column(DateTime(timezone=False), server_default=func.utcnow())
+    updated_on = db.Column(DateTime(timezone=False), server_default=func.utcnow(), onupdate=func.utcnow())
  
     def __repr__(self):
         return '<RacketForm %r>' % self.player_name
@@ -110,8 +110,10 @@ def rackets():
         db.session.commit()
         return redirect(url_for('rackets'))
     if request.method == "GET":
-        finished_today = RacketForm.query.filter(func.date(RacketForm.updated_on) == date.today(), RacketForm.status == "Finished").count()
-        orders_today = RacketForm.query.filter(func.date(RacketForm.created_on) == date.today()).count()
+        # Will only work with databases other than sqlite and in timezone MST.
+        finished_today = RacketForm.query.filter(func.date(func.convert_tz(RacketForm.updated_on, 'UTC', 'MST')) == date.today(), RacketForm.status == "Finished").count()
+        # Will only work with databases other than sqlite and in timezone MST.
+        orders_today = RacketForm.query.filter(func.convert_tz(RacketForm.created_on, 'UTC', 'MST') == date.today()).count()
         rackets = RacketForm.query.order_by(RacketForm.status.desc(), RacketForm.created_on.desc()).all()
         return render_template("racket_queue.html", rackets=rackets, orders_today=orders_today, finished_today=finished_today)
 
