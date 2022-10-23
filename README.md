@@ -2,23 +2,7 @@
 
 StringFlow is an app to facilitate the tennis racket stringing process.
 
-## Run with venv (python virtual environment)
-
-```bash
-# Create a virtual env.
-python -m venv venv
-
-# Activate virtual env.
-source ./venv/bin/activate
-
-# Install project dependencies.
-pip install -r requirements.txt
-
-# Run the server.
-python main.py
-```
-
-## Run with Docker
+## Run for Development
 ```bash
 # In case of not having docker-compose... install it with:
 # sudo pip install docker-compose
@@ -26,13 +10,16 @@ python main.py
 docker-compose up --build
 ```
 
-# Ports
+> run a local auto-reload service.
 
+## Run for Production
+```bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build
+```
+> Run a Gunicorn server ready for production and database resiliency.
+
+## Ports
 development and production severs will be available at:
 ```bash
-0.0.0.0:5000
-
-# or
-
-127.0.0.1:5000
+0.0.0.0:5000 or 127.0.0.1:5000
 ```

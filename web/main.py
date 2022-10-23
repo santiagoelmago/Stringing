@@ -4,13 +4,13 @@ Main module that hold CRUD logic for app operations.
 """
 
 import os
-from datetime import date
+from datetime import date, datetime
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import DateTime
 from sqlalchemy.sql import text, func
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
@@ -21,15 +21,17 @@ app = Flask(__name__)
 
 bcrypt = Bcrypt(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
-    'DATABASE_URI') if os.getenv('DATABASE_URI') else 'sqlite:///racketinfo.db'
+# Database configuration.
+_DB_USER = os.getenv('POSTGRES_USER')
+_DB_PD = os.getenv('POSTGRES_PASSWORD')
+_DB_NAME = os.getenv('POSTGRES_DB')
+_DB_CONTAINER = os.getenv('DATABASE_CONTAINER')
 
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{_DB_USER}:{_DB_PD}@{_DB_CONTAINER}:5432/{_DB_NAME}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
-# Secret key will come from env variables in prod.
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') if os.getenv(
-    'SECRET_KEY') else 'thisisasecretkey'
-
+# Authentication configuration.
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -40,7 +42,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-# this variable, db, will be used for all SQLAlchemy commands
+# High level entrypoint to database execution.
 db = SQLAlchemy(app)
 
 
@@ -56,9 +58,10 @@ class RacketForm(db.Model):
     tension = db.Column(db.Integer, unique=False, nullable=False)
     status = db.Column(db.String(80), unique=False, nullable=False)
     payment = db.Column(db.Boolean, unique=False, nullable=False)
-    created_on = db.Column(DateTime(timezone=False), server_default=func.utcnow())
-    updated_on = db.Column(DateTime(timezone=False), server_default=func.utcnow(), onupdate=func.utcnow())
- 
+    created_on = db.Column(DateTime(timezone=True), default=datetime.utcnow)
+    updated_on = db.Column(DateTime(timezone=True),
+                           default=datetime.utcnow, onupdate=datetime.utcnow)
+
     def __repr__(self):
         return '<RacketForm %r>' % self.player_name
 
@@ -125,10 +128,13 @@ def rackets():
         return redirect(url_for('rackets'))
     if request.method == "GET":
         # Will only work with databases other than sqlite and in timezone MST.
-        finished_today = RacketForm.query.filter(func.date(func.convert_tz(RacketForm.updated_on, 'UTC', 'MST')) == date.today(), RacketForm.status == "Finished").count()
+        finished_today = RacketForm.query.filter(func.date(func.convert_tz(
+            RacketForm.updated_on, 'UTC', 'MST')) == date.today(), RacketForm.status == "Finished").count()
         # Will only work with databases other than sqlite and in timezone MST.
-        orders_today = RacketForm.query.filter(func.convert_tz(RacketForm.created_on, 'UTC', 'MST') == date.today()).count()
-        rackets = RacketForm.query.order_by(RacketForm.status.desc(), RacketForm.created_on.desc()).all()
+        orders_today = RacketForm.query.filter(func.convert_tz(
+            RacketForm.created_on, 'UTC', 'MST') == date.today()).count()
+        rackets = RacketForm.query.order_by(
+            RacketForm.status.desc(), RacketForm.created_on.desc()).all()
         return render_template("racket_queue.html", rackets=rackets, orders_today=orders_today, finished_today=finished_today)
 
 
@@ -222,8 +228,8 @@ def customers():
 
 
 # This route will test the database connection and nothing more
-@app.route('/testdb')
-def testdb():
+@app.route('/healthcheck')
+def healthcheck():
     try:
         db.session.query(text('1')).from_statement(text('SELECT 1')).all()
         return '<h1>It works.</h1>'
@@ -231,9 +237,10 @@ def testdb():
         # e holds description of the error
         error_text = "<p>The error:<br>" + str(e) + "</p>"
         hed = '<h1>Something is broken.</h1>'
-        return hed + error_text
+        return hed + error_text, 500
 
 
 if __name__ == '__main__':
     db.create_all()
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=os.getenv('DEBUG') == 'True',
+            host='0.0.0.0', port=os.getenv('PORT'))

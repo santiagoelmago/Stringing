@@ -14,4 +14,7 @@ SQLAlchemy==1.4.39
 Werkzeug==2.1.2
 WTForms==3.0.1
 zipp==3.8.1
+# Postgres adapter for python.
+psycopg2-binary
+# Production ready server.
 gunicorn

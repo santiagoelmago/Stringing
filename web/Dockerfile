@@ -9,10 +9,8 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-ENV PORT 5000
-
 # Expose passed env var port.
 EXPOSE 5000
 
 # Using gunicorn to handle multiple users at the same time.
-CMD [ "gunicorn", "-w", "2", "main:app"]
+ENTRYPOINT [ "python", "main.py"]
