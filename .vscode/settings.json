@@ -2,5 +2,10 @@
   "python.linting.pylintEnabled": true,
   "python.linting.lintOnSave": true,
   "files.autoSave": "afterDelay",
-  "python.linting.enabled": true
+  "python.linting.enabled": true,
+  "python.linting.pylintArgs": [
+    "--load-plugins",
+    "pylint_flask_sqlalchemy",
+    "pylint_flask",
+  ]
 }

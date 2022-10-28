@@ -69,7 +69,7 @@ class RacketForm(db.Model):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    password = db.Column(db.String(250), nullable=False)
 
 
 class RegisterForm(FlaskForm):
@@ -128,14 +128,11 @@ def rackets():
         return redirect(url_for('rackets'))
     if request.method == "GET":
         # Will only work with databases other than sqlite and in timezone MST.
-        finished_today = RacketForm.query.filter(func.date(func.convert_tz(
-            RacketForm.updated_on, 'UTC', 'MST')) == date.today(), RacketForm.status == "Finished").count()
+        finished_today = RacketForm.query.filter(RacketForm.updated_on == date.today(), RacketForm.status == "Finished").count()
         # Will only work with databases other than sqlite and in timezone MST.
-        orders_today = RacketForm.query.filter(func.convert_tz(
-            RacketForm.created_on, 'UTC', 'MST') == date.today()).count()
-        rackets = RacketForm.query.order_by(
-            RacketForm.status.desc(), RacketForm.created_on.desc()).all()
-        return render_template("racket_queue.html", rackets=rackets, orders_today=orders_today, finished_today=finished_today)
+        orders_today = RacketForm.query.filter(RacketForm.created_on == date.today()).count()
+        items = RacketForm.query.order_by(RacketForm.status.desc(), RacketForm.created_on.desc()).all()
+        return render_template("racket_queue.html", rackets=items, orders_today=orders_today, finished_today=finished_today)
 
 
 @app.route("/racket/new", methods=["GET"])
@@ -187,7 +184,7 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data)
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         new_user = User(username=form.username.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
@@ -233,9 +230,9 @@ def healthcheck():
     try:
         db.session.query(text('1')).from_statement(text('SELECT 1')).all()
         return '<h1>It works.</h1>'
-    except Exception as e:
+    except Exception as error:
         # e holds description of the error
-        error_text = "<p>The error:<br>" + str(e) + "</p>"
+        error_text = "<p>The error:<br>" + str(error) + "</p>"
         hed = '<h1>Something is broken.</h1>'
         return hed + error_text, 500
 
