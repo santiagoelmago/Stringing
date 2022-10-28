@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  server:
+    entrypoint: [ "gunicorn", "-w", "2", "main:app"]
+    environment:
+      - FLASK_ENV=production
+      - DEBUG=False
