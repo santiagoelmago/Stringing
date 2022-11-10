@@ -28,6 +28,8 @@ _DB_NAME = os.getenv('POSTGRES_DB')
 _DB_CONTAINER = os.getenv('DATABASE_CONTAINER')
 # Database URL is the ENV var passed from heroku postgres.
 _DATABASE_URL = os.getenv("DATABASE_URL")
+if _DATABASE_URL.startswith("postgres://"):
+    _DATABASE_URL = _DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 if _DATABASE_URL:
     app.config['SQLALCHEMY_DATABASE_URI'] = _DATABASE_URL
