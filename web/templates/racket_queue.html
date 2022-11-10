@@ -63,10 +63,10 @@
     </style>
   </head>
 
-  <body class="bg-light">
+  <body style="background-color:#F7F6F1;">
   <div class="container-fluid">
     <div class="row">         
-      <nav class="col-md-2 d-none d-md-block sidebar border-right border-top" style="background-color:#F7F6F1">
+      <!-- <nav class="col-md-2 d-none d-md-block sidebar border-right border-top" style="background-color:#F7F6F1">
         <h4 class="text-center p-4" style="color:#24282C">StringFlow</h4>
 
         <div class="sidebar-sticky">
@@ -103,8 +103,8 @@
             </li>
           </ul>
         </div>
-      </nav> 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 p-0"><div class="table-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+      </nav>  -->
+        <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-10 p-0"><div class="table-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
 
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3"  style="background-color: #F7F6F1">
             <h4 class="col-8 sh4 ">Welcome back!</h4>   
@@ -113,14 +113,10 @@
                 <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('logout') }}" >Sign Out</a>
               </div>
             </div>         
-          </div>
-
-          <div class="pl-3" style="background-color: #F7F6F1;">
-            <span> Here's whats happening today.</span>
-          </div>
+          </div> -->
 
           <!-- Dashboard Analytics -->
-          <div class="container m-0">
+          <!-- <div class="container m-0">
             <div class="row py-4 px-2" style="background-color: #F7F6F1">
               <div class="col-sm dash-main">
                 New Orders
@@ -155,9 +151,23 @@
                 </div>
               </div>
             </div>
+          </div> -->
+
+          <div class="bg-white container-fluid d-flex pl-4 py-4">
+            <div class="col-10">
+              <h4>Racket Queue</h4>
+            </div>
+            <div class="col-1">
+              <button type="button" class="btn fa prpbtn" data-toggle="modal" data-target="#entryform" style="color: white; border-radius: 10px; position: relative; right: 0px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#24282C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
+              </button>             
+            </div>
+            <div class="col-1">
+              <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('logout') }}" style="font-size: 15px">Log Out</a>
+            </div>
           </div>
-        
-          <div class="container m-0 py-3" style="background-color: white">
+
+          <!-- <div class="container mx-auto py-3" style="background-color: white">
             <div class="row pl-1 pt-2">
               <div class="col-10">
                 <h4>Racket Queue</h4>
@@ -168,19 +178,19 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div> -->
 
             <!-- Queue Table -->
 
             <div class="table-responsive">
-            <table class="table table-light table-hover w-100 d-block d-md-table" style="width: 1200px; margin:auto ; background-color: white" id="queue">
+            <table class="table table-light table-hover w-100 d-block d-md-table" style="margin:auto ; background-color: white" id="queue">
               <thead>
                 <tr class="text-center">
                   <th scope="col">Name</th>
                   <th scope="col">Brand</th>
                   <th scope="col">Model</th>
                   <th scope="col">Mains</th>
-                  <th scope="col">Cross</th>
+                  <th scope="col">Crosses</th>
                   <th scope="col">Tension</th>
                   <th scope="col">Stringer</th>
                   <th scope="col">Status</th>

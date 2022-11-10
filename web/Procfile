@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath web -w 2 main:app --preload
