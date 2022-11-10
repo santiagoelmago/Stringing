@@ -138,13 +138,13 @@ def rackets():
         db.session.commit()
         return redirect(url_for('rackets'))
 
-    # if request.method == "GET":
-    #     # Will only work with databases other than sqlite and in timezone MST.
-    #     finished_today = Racket.query.filter(Racket.updated_on == date.today(), Racket.status == "Finished").count()
-    #     # Will only work with databases other than sqlite and in timezone MST.
-    #     orders_today = Racket.query.filter(Racket.created_on == date.today()).count()
-    #     items = Racket.query.order_by(Racket.status.desc(), Racket.created_on.desc()).all()
-    #     return render_template("racket_queue.html", rackets=items, orders_today=orders_today, finished_today=finished_today)
+    if request.method == "GET":
+        # Will only work with databases other than sqlite and in timezone MST.
+        finished_today = Racket.query.filter(Racket.updated_on == date.today(), Racket.status == "Finished").count()
+        # Will only work with databases other than sqlite and in timezone MST.
+        orders_today = Racket.query.filter(Racket.created_on == date.today()).count()
+        items = Racket.query.order_by(Racket.status.desc(), Racket.created_on.desc()).all()
+        return render_template("racket_queue.html", rackets=items, orders_today=orders_today, finished_today=finished_today)
 
 
 @app.route("/racket/new", methods=["GET"])
