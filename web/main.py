@@ -39,23 +39,23 @@ else:
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
+
+# High level entrypoint to database execution.
+db = SQLAlchemy(app)
+
 # Authentication configuration.
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-# High level entrypoint to database execution.
-db = SQLAlchemy(app)
-
-
-class RacketForm(db.Model):
+class Racket(db.Model):
+    __tablename__ = 'rackets'
     id = db.Column(db.Integer, primary_key=True)
     player_name = db.Column(db.String(80), unique=False, nullable=False)
     stringer = db.Column(db.String(80), unique=False, nullable=True)
@@ -72,10 +72,11 @@ class RacketForm(db.Model):
                            default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def __repr__(self):
-        return '<RacketForm %r>' % self.player_name
+        return '<Racket %r>' % self.player_name
 
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(250), nullable=False)
@@ -118,7 +119,7 @@ def home():
 @login_required
 def rackets():
     if request.method == "POST":
-        racket_form_response = RacketForm(
+        racket_form_response = Racket(
             player_name=request.form.get('player_name'),
             phone_number=request.form.get('phone_number'),
             racket_brand=request.form.get('racket_brand'),
@@ -138,10 +139,10 @@ def rackets():
 
     # if request.method == "GET":
     #     # Will only work with databases other than sqlite and in timezone MST.
-    #     finished_today = RacketForm.query.filter(RacketForm.updated_on == date.today(), RacketForm.status == "Finished").count()
+    #     finished_today = Racket.query.filter(Racket.updated_on == date.today(), Racket.status == "Finished").count()
     #     # Will only work with databases other than sqlite and in timezone MST.
-    #     orders_today = RacketForm.query.filter(RacketForm.created_on == date.today()).count()
-    #     items = RacketForm.query.order_by(RacketForm.status.desc(), RacketForm.created_on.desc()).all()
+    #     orders_today = Racket.query.filter(Racket.created_on == date.today()).count()
+    #     items = Racket.query.order_by(Racket.status.desc(), Racket.created_on.desc()).all()
     #     return render_template("racket_queue.html", rackets=items, orders_today=orders_today, finished_today=finished_today)
 
 
@@ -155,7 +156,7 @@ def createRacket():
 @login_required
 def update(racket_id):
     if request.method == "POST":
-        racket_request = RacketForm.query.filter_by(id=racket_id).first()
+        racket_request = Racket.query.filter_by(id=racket_id).first()
         racket_request.status = request.form.get('status')
         racket_request.stringer = request.form.get('stringer')
         racket_request.payment = request.form.get('paid') == 'on'
@@ -166,7 +167,7 @@ def update(racket_id):
 @app.route('/racket/<int:racket_id>/delete', methods=["GET", "POST"])
 @login_required
 def delete(racket_id):
-    racket = RacketForm.query.filter_by(id=racket_id).first()
+    racket = Racket.query.filter_by(id=racket_id).first()
 
     if request.method == "POST":
         db.session.delete(racket)
