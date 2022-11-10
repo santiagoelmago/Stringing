@@ -26,8 +26,15 @@ _DB_USER = os.getenv('POSTGRES_USER')
 _DB_PD = os.getenv('POSTGRES_PASSWORD')
 _DB_NAME = os.getenv('POSTGRES_DB')
 _DB_CONTAINER = os.getenv('DATABASE_CONTAINER')
+# Database URL is the ENV var passed from heroku postgres.
+_DATABASE_URL = os.getenv("DATABASE_URL")
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{_DB_USER}:{_DB_PD}@{_DB_CONTAINER}:5432/{_DB_NAME}'
+if _DATABASE_URL:
+    app.config['SQLALCHEMY_DATABASE_URI'] = _DATABASE_URL
+else:
+    _SEPARATE_URL = f'postgresql://{_DB_USER}:{_DB_PD}@{_DB_CONTAINER}:5432/{_DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = _SEPARATE_URL
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 # Authentication configuration.

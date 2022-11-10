@@ -2,3 +2,4 @@
 *.db
 **/*.db
 /postgres/data
+/web/__pycache__
