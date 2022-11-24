@@ -138,7 +138,7 @@ def rackets():
         db.session.commit()
         return redirect(url_for('rackets'))
 
-     if request.method == "GET":
+    if request.method == "GET":
         #Will only work with databases other than sqlite and in timezone MST.
         finished_today = RacketForm.query.filter(RacketForm.updated_on == date.today(), RacketForm.status == "Finished").count()
         # Will only work with databases other than sqlite and in timezone MST.
